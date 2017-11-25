@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Eshop.Data.Entities
 {
-    public class Category
+    public class Category : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
+        [MaxLength(32)]
         public string Name { get; set; }
+        [MaxLength(255)]
+        public string Description { get; set; }
+
     }
 }
