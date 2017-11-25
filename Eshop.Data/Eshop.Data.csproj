@@ -55,10 +55,18 @@
   <ItemGroup>
     <Compile Include="DatabaseContext\MySqlDbContext.cs" />
     <Compile Include="DatabaseContext\MySqlDbInitializer.cs" />
+    <Compile Include="Entities\Attribute.cs" />
+    <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Category.cs" />
-    <Compile Include="Migrations\201711252107035_initial.cs" />
-    <Compile Include="Migrations\201711252107035_initial.Designer.cs">
-      <DependentUpon>201711252107035_initial.cs</DependentUpon>
+    <Compile Include="Entities\Manufacturer.cs" />
+    <Compile Include="Entities\Measurement.cs" />
+    <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\ProductAttribute.cs" />
+    <Compile Include="Entities\ProductPic.cs" />
+    <Compile Include="Entities\TraitValue.cs" />
+    <Compile Include="Migrations\201711252250149_initial.cs" />
+    <Compile Include="Migrations\201711252250149_initial.Designer.cs">
+      <DependentUpon>201711252250149_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,8 +76,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711252107035_initial.resx">
-      <DependentUpon>201711252107035_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711252250149_initial.resx">
+      <DependentUpon>201711252250149_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
