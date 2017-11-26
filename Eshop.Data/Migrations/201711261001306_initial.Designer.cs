@@ -13,7 +13,7 @@ namespace Eshop.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201711252250149_initial"; }
+            get { return "201711261001306_initial"; }
         }
         
         string IMigrationMetadata.Source

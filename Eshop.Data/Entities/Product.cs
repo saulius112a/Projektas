@@ -25,7 +25,11 @@ namespace Eshop.Data.Entities
         public virtual Manufacturer Manufacturer { get; set; }
         public virtual ICollection<ProductAttribute> Attributes { get; set; }
         public virtual ICollection<ProductPic> Pics { get; set; }
+        public virtual Discount Discount { get; set; }
 
+        public virtual ICollection<PurchaseInfo> PurchaseInfos { get; set; }
+        public virtual ICollection<WishListProduct> WishListProducts { get; set; }
+        public virtual ICollection<CartInfo> CartInfos { get; set; }
 
     }
 }

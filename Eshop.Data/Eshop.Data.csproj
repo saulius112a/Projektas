@@ -55,18 +55,28 @@
   <ItemGroup>
     <Compile Include="DatabaseContext\MySqlDbContext.cs" />
     <Compile Include="DatabaseContext\MySqlDbInitializer.cs" />
+    <Compile Include="Entities\Account.cs" />
+    <Compile Include="Entities\AccountInfo.cs" />
     <Compile Include="Entities\Attribute.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\Cart.cs" />
+    <Compile Include="Entities\CartInfo.cs" />
     <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Discount.cs" />
+    <Compile Include="Entities\LoginLog.cs" />
     <Compile Include="Entities\Manufacturer.cs" />
     <Compile Include="Entities\Measurement.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ProductAttribute.cs" />
     <Compile Include="Entities\ProductPic.cs" />
+    <Compile Include="Entities\Purchase.cs" />
+    <Compile Include="Entities\PurchaseInfo.cs" />
     <Compile Include="Entities\TraitValue.cs" />
-    <Compile Include="Migrations\201711252250149_initial.cs" />
-    <Compile Include="Migrations\201711252250149_initial.Designer.cs">
-      <DependentUpon>201711252250149_initial.cs</DependentUpon>
+    <Compile Include="Entities\WishList.cs" />
+    <Compile Include="Entities\WishListProduct.cs" />
+    <Compile Include="Migrations\201711261001306_initial.cs" />
+    <Compile Include="Migrations\201711261001306_initial.Designer.cs">
+      <DependentUpon>201711261001306_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,8 +86,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711252250149_initial.resx">
-      <DependentUpon>201711252250149_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711261001306_initial.resx">
+      <DependentUpon>201711261001306_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
