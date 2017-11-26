@@ -11,6 +11,9 @@ namespace Eshop.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using Eshop.Data.DatabaseContext;
+    using Eshop.BusinessLogic;
+    using Eshop.BusinessLogic.Interfaces;
+    using Eshop.BusinessLogic.Implementations;
 
     public static class NinjectWebCommon 
     {
@@ -62,6 +65,8 @@ namespace Eshop.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IRepository>().To<Repository>().InRequestScope();
+            kernel.Bind<ICategoryService>().To<CategoryService>();
             kernel.Bind<MySqlDbContext>().ToSelf();
         }        
     }

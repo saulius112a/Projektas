@@ -12,7 +12,7 @@ namespace Eshop.Data.Entities
     {
         [Key]
         [ForeignKey("ProductAttribute")]
-        public int Id { get; set; }
+        public int ProductAttributeId { get; set; }
         [Required]
         public string Unit { get; set; }
         [Required]

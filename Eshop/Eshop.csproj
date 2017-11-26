@@ -171,6 +171,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoriesViewModel.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,7 +215,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -229,6 +230,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Eshop.BusinessLogic\Eshop.BusinessLogic.csproj">
+      <Project>{0967B2E5-C9B0-4741-A0AE-DB3A19B5DD32}</Project>
+      <Name>Eshop.BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eshop.Data\Eshop.Data.csproj">
       <Project>{deef1228-eb45-4eac-a945-6fbe2625d149}</Project>
       <Name>Eshop.Data</Name>

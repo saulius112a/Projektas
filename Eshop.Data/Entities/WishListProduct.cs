@@ -13,6 +13,10 @@ namespace Eshop.Data.Entities
         [Key, Column(Order = 1)]
         public int Importance { get; set; }
         public string Status { get; set; }
+        [ForeignKey("WishList")]
+        public int WishListId { get; set; }
+        [ForeignKey("Product")]
+        public int ProductId { get; set; }
         [Required]
         public virtual WishList WishList { get; set; }
         [Required]
