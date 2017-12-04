@@ -70,7 +70,7 @@ namespace Eshop.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpGet]
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();

@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login</h2>
+<form method="post">
+    <p>@ViewBag.Error</p>
+    <input type="text" name="Email" placeholder="Elektroninio pašto adresas" required/><br />
+    <input type="password" name="Password" placeholder="Slaptažodis" required/><br />
+    <input type="submit" />
+</form>
+
