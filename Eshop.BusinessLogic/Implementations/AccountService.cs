@@ -35,5 +35,14 @@ namespace Eshop.BusinessLogic.Implementations
             }
             return "2";
         }
+        public AccountInfoModel GetAccountInfo(int id)
+        {
+            return (AccountInfoModel)Repository.GetAccountInfo(id);
+        }
+
+        public AccountModel GetAccountByEmail(string email)
+        {
+            return (AccountModel)Repository.GetAccountByEmail(email);
+        }
     }
 }

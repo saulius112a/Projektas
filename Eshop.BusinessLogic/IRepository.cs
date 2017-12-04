@@ -17,5 +17,7 @@ namespace Eshop.BusinessLogic
         void Register(AccountModel a);
         Account GetAccountByEmail(string email);
         string InsertAccount(Account a);
+        AccountInfo GetAccountInfo(int id);
+        string InsertAccountInfo(int id);
     }
 }

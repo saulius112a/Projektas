@@ -24,6 +24,13 @@ namespace Eshop.Controllers
             Repository = rep;
             AccountService = accs;
         }
+        [HttpGet]
+        public ActionResult Profile()
+        {
+            AccountModel am = AccountService.GetAccountByEmail(User.Identity.Name);
+            AccountInfoModel aim = AccountService.GetAccountInfo(am.Id);
+            return View(aim);
+        }
 
         [HttpGet]
         public ActionResult LogIn()

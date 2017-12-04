@@ -12,5 +12,7 @@ namespace Eshop.BusinessLogic.Interfaces
     {
         ClaimsIdentity Authorise(AccountModel a);
         string Register(AccountModel a);
+        AccountInfoModel GetAccountInfo(int id);
+        AccountModel GetAccountByEmail(string email);
     }
 }

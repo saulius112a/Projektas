@@ -57,6 +57,32 @@ namespace Eshop.BusinessLogic
             try
             {
                 db.Accounts.Add(a);
+                db.SaveChanges();
+                InsertAccountInfo(GetAccountByEmail(a.Email).Id);
+                return "";
+            } catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        public AccountInfo GetAccountInfo(int id)
+        {
+            return db.AccountInfos.FirstOrDefault(a => a.AccountId == id);
+        }
+
+        public string InsertAccountInfo(int id)
+        {
+            try
+            {
+                db.AccountInfos.Add(new AccountInfo
+                {
+                    Name = null,
+                    LastName = null,
+                    Address = null,
+                    Phone = null,
+                    ZipCode = null,
+                    AccountId = id
+                });
                 db.SaveChangesAsync();
                 return "";
             } catch (Exception e)
