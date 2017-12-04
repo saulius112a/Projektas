@@ -14,5 +14,8 @@ namespace Eshop.BusinessLogic
         JsonResult GetCategories();
         void InsertCategory();
         void InsertCategory(CategoryModel model);
+        void Register(AccountModel a);
+        Account GetAccountByEmail(string email);
+        string InsertAccount(Account a);
     }
 }

@@ -42,5 +42,27 @@ namespace Eshop.BusinessLogic
             db.Categories.Add((Category)model);
             db.SaveChangesAsync();
         }
+
+        public void Register(AccountModel a)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Account GetAccountByEmail(string email)
+        {
+            return db.Accounts.FirstOrDefault(a => a.Email == email);
+        }
+        public string InsertAccount(Account a)
+        {
+            try
+            {
+                db.Accounts.Add(a);
+                db.SaveChangesAsync();
+                return "";
+            } catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
     }
 }

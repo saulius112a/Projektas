@@ -76,7 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configs\Bindings.cs" />
+    <Compile Include="Implementations\AccountService.cs" />
     <Compile Include="Implementations\CategoryService.cs" />
+    <Compile Include="Interfaces\IAccountService.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

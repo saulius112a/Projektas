@@ -49,6 +49,9 @@ namespace Eshop.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
+                //Bindings
+                kernel.Bind<IAccountService>().To<AccountService>();
+
                 RegisterServices(kernel);
                 return kernel;
             }
