@@ -11,6 +11,11 @@ namespace Eshop.Models
     {
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
+        public string ZipCode { get; set; }
 
         public static explicit operator AccountModel(RegisterViewModel r)
         {
@@ -21,6 +26,18 @@ namespace Eshop.Models
                 Role = 1,
                 CreationDate = DateTime.Now,
                 Status = false
+            };
+        }
+
+        public static explicit operator AccountInfoModel(RegisterViewModel r)
+        {
+            return new AccountInfoModel
+            {
+                Name = r.Name,
+                LastName = r.LastName,
+                Address = r.Address,
+                Phone = r.Phone,
+                ZipCode = r.ZipCode
             };
         }
     }

@@ -62,9 +62,10 @@ namespace Eshop.Controllers
         public ActionResult Register(RegisterViewModel r)
         {
             AccountModel accModel = (AccountModel)r;
+            AccountInfoModel acciModel = (AccountInfoModel)r;
             var hashed = Crypto.HashPassword(accModel.Password);
             accModel.Password = hashed;
-            string regRsp = AccountService.Register(accModel);
+            string regRsp = AccountService.Register(accModel, acciModel);
             if(String.IsNullOrWhiteSpace(regRsp))
             {
                 return RedirectToAction("LogIn", "Account");

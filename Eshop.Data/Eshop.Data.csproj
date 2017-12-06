@@ -78,9 +78,9 @@
     <Compile Include="Entities\TraitValue.cs" />
     <Compile Include="Entities\WishList.cs" />
     <Compile Include="Entities\WishListProduct.cs" />
-    <Compile Include="Migrations\201711261529206_initial.cs" />
-    <Compile Include="Migrations\201711261529206_initial.Designer.cs">
-      <DependentUpon>201711261529206_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201712061756260_initial.cs" />
+    <Compile Include="Migrations\201712061756260_initial.Designer.cs">
+      <DependentUpon>201712061756260_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CategoryModel.cs" />
@@ -91,8 +91,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711261529206_initial.resx">
-      <DependentUpon>201711261529206_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712061756260_initial.resx">
+      <DependentUpon>201712061756260_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
