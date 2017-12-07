@@ -12,13 +12,13 @@ namespace Eshop.Data.Entities
         [Required]
         public string Email { get; set; }
         [Required]
-        [MaxLength(32)]
+        [MaxLength(128)]
         public string Password { get; set; }
         [Required]
-        public string Role { get; set; }
+        public int Role { get; set; }
         [Required]
         public DateTime CreationDate { get; set; }
-        public string Status { get; set; }
+        public bool Status { get; set; }
         public virtual ICollection<LoginLog> LoginLogs { get; set; }
         public virtual AccountInfo AccountInfo { get; set; }
     }
