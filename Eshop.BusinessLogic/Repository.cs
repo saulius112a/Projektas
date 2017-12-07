@@ -100,5 +100,18 @@ namespace Eshop.BusinessLogic
                 return e.Message;
             }
         }
+
+        public string InsertLoginLog(LoginLog l)
+        {
+            try
+            {
+                db.LoginLogs.Add(l);
+                db.SaveChanges();
+                return "";
+            } catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
     }
 }

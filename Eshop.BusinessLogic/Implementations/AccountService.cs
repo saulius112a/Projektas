@@ -51,5 +51,22 @@ namespace Eshop.BusinessLogic.Implementations
             var dbRsp = Repository.UpdateAccountInfo(id, (AccountInfo)a);
             return (String.IsNullOrWhiteSpace(dbRsp) ? null : ("Problems with database insert action: " + dbRsp));
         }
+
+        public void LogLogin(bool status, string email, string ip)
+        {
+            LoginLogsModel llm = new LoginLogsModel();
+            llm.IPAddress = ip;
+            llm.AccountId = GetAccountByEmail(email).Id;
+            switch(status)
+            {
+                case true:
+                    llm.Status = LoginLog.LogStatus.succeded;
+                    break;
+                case false:
+                    llm.Status = LoginLog.LogStatus.failed;
+                    break;
+            }
+            var dbRsp = Repository.InsertLoginLog((LoginLog)llm);
+        }
     }
 }

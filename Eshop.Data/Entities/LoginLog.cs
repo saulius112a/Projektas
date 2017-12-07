@@ -12,10 +12,15 @@ namespace Eshop.Data.Entities
     {
         [Required]
         public string IPAddress { get; set; }
-        public string Status { get; set; }
+        public LogStatus Status { get; set; }
         [ForeignKey("Account")]
         public int AccountId { get; set; }
         public virtual Account Account { get; set; }
+
+        public enum LogStatus
+        {
+            failed, succeded
+        }
         
     }
 }

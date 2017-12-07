@@ -20,5 +20,6 @@ namespace Eshop.BusinessLogic
         AccountInfo GetAccountInfo(int id);
         string InsertAccountInfo(int id, AccountInfo a);
         string UpdateAccountInfo(int id, AccountInfo a);
+        string InsertLoginLog(LoginLog l);
     }
 }

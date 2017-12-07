@@ -62,15 +62,23 @@ namespace Eshop.Controllers
         [HttpPost]
         public ActionResult LogIn(LogInViewModel l)
         {
-            if(IsValid(l.Email, l.Password))
+            var logRsp = IsValid(l.Email, l.Password);
+            if(String.IsNullOrWhiteSpace(logRsp))
             {
                 FormsAuthentication.SetAuthCookie(l.Email, false);
+                AccountService.LogLogin(true, l.Email, Request.UserHostAddress);
                 return RedirectToAction("Index", "Home");
-            } else
+            } else if(logRsp == "1")
+            {
+                ViewBag.Error = "Blogai įvesti duomenys";
+                AccountService.LogLogin(false, l.Email, Request.UserHostAddress);
+                return View();
+            } else if(logRsp == "2")
             {
                 ViewBag.Error = "Blogai įvesti duomenys";
                 return View();
             }
+            return View();
         }
         
         [HttpGet]
@@ -106,19 +114,22 @@ namespace Eshop.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private bool IsValid(string email, string password)
+        private string IsValid(string email, string password)
         {
             var acc = Repository.GetAccountByEmail(email);
             if (acc == null)
             {
-                return false;
+                return "2";
             }
             AccountModel am = (AccountModel)Repository.GetAccountByEmail(email);
-            if(Crypto.VerifyHashedPassword(acc.Password, password))
+            if (Crypto.VerifyHashedPassword(acc.Password, password))
             {
-                return true;
+                return "";
             }
-            return false;
+            else
+            {
+                return "1";
+            }
         }
     }
 }

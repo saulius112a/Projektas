@@ -77,14 +77,15 @@
     <Compile Include="Entities\TraitValue.cs" />
     <Compile Include="Entities\WishList.cs" />
     <Compile Include="Entities\WishListProduct.cs" />
-    <Compile Include="Migrations\201712070802272_initial.cs" />
-    <Compile Include="Migrations\201712070802272_initial.Designer.cs">
-      <DependentUpon>201712070802272_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201712070923098_initial.cs" />
+    <Compile Include="Migrations\201712070923098_initial.Designer.cs">
+      <DependentUpon>201712070923098_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountInfoModel.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\LoginLogsModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -103,8 +104,8 @@
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712070802272_initial.resx">
-      <DependentUpon>201712070802272_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712070923098_initial.resx">
+      <DependentUpon>201712070923098_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
