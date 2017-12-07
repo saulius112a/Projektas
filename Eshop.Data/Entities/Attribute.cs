@@ -15,9 +15,9 @@ namespace Eshop.Data.Entities
         public bool IsTrait { get; set; }
         [MaxLength(32)]
         public string Description { get; set; }
-
+        [ForeignKey("Category")]
         public int CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
+        [Required]
         public virtual Category Category { get; set; }
         public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }
 

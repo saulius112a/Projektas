@@ -1,5 +1,4 @@
 ﻿using Eshop.Data.Models;
-using Eshop.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,29 +6,15 @@ using System.Web;
 
 namespace Eshop.Models
 {
-    public class RegisterViewModel
+    public class EditViewModel
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public string ZipCode { get; set; }
 
-        public static explicit operator AccountModel(RegisterViewModel r)
-        {
-            return new AccountModel
-            {
-                Email = r.Email,
-                Password = r.Password,
-                Role = Account.AccRole.client,
-                CreationDate = DateTime.Now,
-                Status = Account.AccStatus.active
-            };
-        }
-
-        public static explicit operator AccountInfoModel(RegisterViewModel r)
+        public static explicit operator AccountInfoModel(EditViewModel r)
         {
             return new AccountInfoModel
             {

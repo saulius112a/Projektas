@@ -11,8 +11,9 @@ namespace Eshop.BusinessLogic.Interfaces
     public interface IAccountService
     {
         ClaimsIdentity Authorise(AccountModel a);
-        string Register(AccountModel a);
+        string Register(AccountModel a, AccountInfoModel ai);
         AccountInfoModel GetAccountInfo(int id);
         AccountModel GetAccountByEmail(string email);
+        string UpdateAccountInfo(int id, AccountInfoModel a);
     }
 }

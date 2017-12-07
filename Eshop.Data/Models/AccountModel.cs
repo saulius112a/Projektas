@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Eshop.Data.Entities.Account;
 
 namespace Eshop.Data.Models
 {
@@ -15,9 +16,9 @@ namespace Eshop.Data.Models
         public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public int Role { get; set; }
+        public AccRole Role { get; set; }
         public DateTime CreationDate { get; set; }
-        public bool Status { get; set; }
+        public AccStatus Status { get; set; }
         //public virtual ICollection<LoginLog> LoginLogs { get; set; }
         //public virtual AccountInfo AccountInfo { get; set;}
 

@@ -58,7 +58,6 @@ namespace Eshop.BusinessLogic
             {
                 db.Accounts.Add(a);
                 db.SaveChanges();
-                InsertAccountInfo(GetAccountByEmail(a.Email).Id);
                 return "";
             } catch (Exception e)
             {
@@ -70,20 +69,31 @@ namespace Eshop.BusinessLogic
             return db.AccountInfos.FirstOrDefault(a => a.AccountId == id);
         }
 
-        public string InsertAccountInfo(int id)
+        public string InsertAccountInfo(int id, AccountInfo a)
         {
             try
             {
-                db.AccountInfos.Add(new AccountInfo
-                {
-                    Name = null,
-                    LastName = null,
-                    Address = null,
-                    Phone = null,
-                    ZipCode = null,
-                    AccountId = id
-                });
-                db.SaveChangesAsync();
+                a.AccountId = id;
+                db.AccountInfos.Add(a);
+                db.SaveChanges();
+                return "";
+            } catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        public string UpdateAccountInfo(int id, AccountInfo a)
+        {
+            try
+            {
+                AccountInfo ai = db.AccountInfos.FirstOrDefault(b => b.AccountId == id);
+                ai.Name = a.Name;
+                ai.LastName = a.LastName;
+                ai.Address = a.Address;
+                ai.Phone = a.Phone;
+                ai.ZipCode = a.ZipCode;
+                db.SaveChanges();
                 return "";
             } catch (Exception e)
             {

@@ -19,7 +19,7 @@ namespace Eshop.Data.Entities
         public int? ParentId { get; set; }
         public virtual Category Parent { get; set; }
         public virtual ICollection<Category> SubCategories { get; set; }
-        public virtual Entities.Attribute Attribute { get; set; }
+        public virtual ICollection<Entities.Attribute> Attributes { get; set; }
         public virtual ICollection<Product> Products { get; set; }
 
     }

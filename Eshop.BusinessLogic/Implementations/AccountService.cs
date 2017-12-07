@@ -22,12 +22,13 @@ namespace Eshop.BusinessLogic.Implementations
             throw new NotImplementedException();
         }
 
-        public string Register(AccountModel a)
+        public string Register(AccountModel a, AccountInfoModel ai)
         {
             Account dbAccount = Repository.GetAccountByEmail(a.Email);
             if(dbAccount == null)
             {
                 var dbRsp = Repository.InsertAccount((Account)a);
+                var dbRsp2 = Repository.InsertAccountInfo(GetAccountByEmail(a.Email).Id, (AccountInfo)ai);
                 return (String.IsNullOrWhiteSpace(dbRsp) ? null : ("Problems with database insert action: " + dbRsp));
             } else if (dbAccount != null)
             {
@@ -43,6 +44,12 @@ namespace Eshop.BusinessLogic.Implementations
         public AccountModel GetAccountByEmail(string email)
         {
             return (AccountModel)Repository.GetAccountByEmail(email);
+        }
+
+        public string UpdateAccountInfo(int id, AccountInfoModel a)
+        {
+            var dbRsp = Repository.UpdateAccountInfo(id, (AccountInfo)a);
+            return (String.IsNullOrWhiteSpace(dbRsp) ? null : ("Problems with database insert action: " + dbRsp));
         }
     }
 }
