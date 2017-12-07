@@ -19,5 +19,6 @@ namespace Eshop.BusinessLogic
         string InsertAccount(Account a);
         AccountInfo GetAccountInfo(int id);
         string InsertAccountInfo(int id, AccountInfo a);
+        string UpdateAccountInfo(int id, AccountInfo a);
     }
 }

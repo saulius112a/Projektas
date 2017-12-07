@@ -14,5 +14,6 @@ namespace Eshop.BusinessLogic.Interfaces
         string Register(AccountModel a, AccountInfoModel ai);
         AccountInfoModel GetAccountInfo(int id);
         AccountModel GetAccountByEmail(string email);
+        string UpdateAccountInfo(int id, AccountInfoModel a);
     }
 }

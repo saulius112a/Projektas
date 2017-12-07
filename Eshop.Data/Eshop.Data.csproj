@@ -83,6 +83,8 @@
       <DependentUpon>201712061756260_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountInfoModel.cs" />
+    <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

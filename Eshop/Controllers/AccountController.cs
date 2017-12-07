@@ -33,6 +33,27 @@ namespace Eshop.Controllers
         }
 
         [HttpGet]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditViewModel e)
+        {
+            int id = AccountService.GetAccountByEmail(User.Identity.Name).Id;
+            string editRsp = AccountService.UpdateAccountInfo(id, (AccountInfoModel)e);
+            if (String.IsNullOrWhiteSpace(editRsp))
+            {
+                return RedirectToAction("Profile");
+            } else
+            {
+                ViewBag.Error = editRsp;
+                return View();
+            }
+        }
+
+        [HttpGet]
         public ActionResult LogIn()
         {
             return View();

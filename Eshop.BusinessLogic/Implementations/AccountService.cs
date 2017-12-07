@@ -45,5 +45,11 @@ namespace Eshop.BusinessLogic.Implementations
         {
             return (AccountModel)Repository.GetAccountByEmail(email);
         }
+
+        public string UpdateAccountInfo(int id, AccountInfoModel a)
+        {
+            var dbRsp = Repository.UpdateAccountInfo(id, (AccountInfo)a);
+            return (String.IsNullOrWhiteSpace(dbRsp) ? null : ("Problems with database insert action: " + dbRsp));
+        }
     }
 }

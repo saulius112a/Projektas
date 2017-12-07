@@ -82,5 +82,23 @@ namespace Eshop.BusinessLogic
                 return e.Message;
             }
         }
+
+        public string UpdateAccountInfo(int id, AccountInfo a)
+        {
+            try
+            {
+                AccountInfo ai = db.AccountInfos.FirstOrDefault(b => b.AccountId == id);
+                ai.Name = a.Name;
+                ai.LastName = a.LastName;
+                ai.Address = a.Address;
+                ai.Phone = a.Phone;
+                ai.ZipCode = a.ZipCode;
+                db.SaveChanges();
+                return "";
+            } catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
     }
 }
