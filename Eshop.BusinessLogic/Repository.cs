@@ -197,7 +197,6 @@ namespace Eshop.BusinessLogic
             string json = reader.ReadToEnd();
             var res = JObject.Parse(json);
             var v = res.Property("categories");
-            //var arr = v.Value;
             JArray arr = JArray.Parse(v.Value.ToString());
             db.Configuration.AutoDetectChangesEnabled = false;
             for (int i = 0; i < arr.Count; i++)
@@ -216,7 +215,6 @@ namespace Eshop.BusinessLogic
                     {
                         cat.ParentId = parentEnt.Id;
                     }
-                    
                 }
                 else
                 {
@@ -225,9 +223,12 @@ namespace Eshop.BusinessLogic
                         Name = name,
                         Description = description,
                         Parent = parentEnt
-
                     };
-                    newCat.ParentId = parentEnt.Id;
+                    if (parentEnt != null)
+                    {
+                        newCat.ParentId = parentEnt.Id;
+                    }
+                    
                 db.Categories.Add(newCat);
                 }
             }
@@ -239,7 +240,6 @@ namespace Eshop.BusinessLogic
             string json = reader.ReadToEnd();
             var res = JObject.Parse(json);
             var v = res.Property("attributes");
-            //var arr = v.Value;
             JArray arr = JArray.Parse(v.Value.ToString());
             db.Configuration.AutoDetectChangesEnabled = false;
             for (int i = 0; i < arr.Count; i++)
@@ -274,9 +274,159 @@ namespace Eshop.BusinessLogic
                             CategoryId = cat.Id
                         });
                     }
-
                 }
-
+            }
+            db.ChangeTracker.DetectChanges();
+            db.SaveChangesAsync();
+        }
+        public void InsertProductsFromJsonFile(StreamReader reader)
+        {
+            string json = reader.ReadToEnd();
+            var res = JObject.Parse(json);
+            var v = res.Property("products");
+            JArray arr = JArray.Parse(v.Value.ToString());
+            db.Configuration.AutoDetectChangesEnabled = false;
+            for (int i = 0; i < arr.Count; i++)
+            {
+                string name = arr[i].Value<string>("name");
+                string manufacturer= arr[i].Value<string>("manufacturer");
+                string category = arr[i].Value<string>("category");
+                Manufacturer man = db.Manufacturers.Where(x => x.Name == manufacturer).FirstOrDefault();
+                Category cat= db.Categories.Where(x => x.Name == category).FirstOrDefault();
+                if (man == null|| cat==null)
+                {
+                    continue;
+                }
+                string productCode = arr[i].Value<string>("productCode");
+                string color = arr[i].Value<string>("color");
+                string description= arr[i].Value<string>("description");
+                double weight= arr[i].Value<double>("weight");
+                double price= arr[i].Value<double>("price");
+                bool isDiscounted = arr[i].Value<bool>("isDiscounted");
+                DateTime date = DateTime.Now;
+                Product product=db.Products.Where(x => x.Name == name).FirstOrDefault();
+                if (product != null)
+                {
+                    product.Name = name;
+                    product.ManufacturerId = man.Id;
+                    product.Manufacturer = man;
+                    product.Price = price;
+                    product.ProductCode = productCode;
+                    product.UpdateDate = date;
+                    product.Color = color;
+                    product.Weight = weight;
+                    product.Description = description;
+                    product.Category = cat;
+                    product.CategoryId = cat.Id;
+                    product.IsDiscounted = isDiscounted;
+                }
+                else
+                {
+                    product = new Product
+                    { 
+                        Name=name,
+                        Description = description,
+                        ProductCode = productCode,
+                        Weight = weight,
+                        Price = price,
+                        Color = color,
+                        UpdateDate = date,
+                        CreationDate = date,
+                        IsDiscounted = isDiscounted,
+                        Manufacturer = man,
+                        ManufacturerId = man.Id,
+                        Category = cat,
+                        CategoryId = cat.Id
+                        
+                    };
+                    db.Products.Add(product);
+                }
+                JArray attributes = arr[i].Value<JArray>("attributes");
+                for (int j = 0; j < attributes.Count; j++)
+                {
+                    string attributeName = attributes[j].Value<string>("name");
+                    Data.Entities.Attribute att = db.Attributes.Where(x => x.Name == attributeName).FirstOrDefault();
+                    if(att != null)
+                    {
+                        
+                        string unit= attributes[j].Value<string>("unit");
+                        ProductAttribute productAtt = db.ProductAttributes.Where(
+                            x => x.ProductId == product.Id && x.AttributeId == att.Id).FirstOrDefault();
+                        if (productAtt != null)
+                        {
+                            if (att.IsTrait)
+                            {
+                                string value = attributes[j].Value<string>("value");
+                                TraitValue trait = db.TraitValues.Where(x => x.ProductAttributeId == productAtt.Id).FirstOrDefault();
+                                if (trait != null)
+                                {
+                                    trait.Value = value;
+                                }
+                                else
+                                {
+                                    db.TraitValues.Add(new TraitValue
+                                    {
+                                        Value = value,
+                                        ProductAttributeId = productAtt.Id,
+                                        ProductAttribute = productAtt
+                                    });
+                                }
+                            }
+                            else
+                            {
+                                double value = attributes[j].Value<double>("value");
+                                Measurement trait = db.Measurements.Where(x => x.ProductAttributeId == productAtt.Id).FirstOrDefault();
+                                if (trait != null)
+                                {
+                                    trait.Value = value;
+                                    trait.Unit = unit;
+                                }
+                                else
+                                {
+                                    db.Measurements.Add(new Measurement
+                                    {
+                                        Value = value,
+                                        Unit=unit,
+                                        ProductAttributeId = productAtt.Id,
+                                        ProductAttribute = productAtt
+                                    });
+                                }
+                            }
+                        }
+                        else
+                        {
+                            productAtt = new ProductAttribute
+                            {
+                                Product=product,
+                                Attribute=att,
+                                AttributeId=att.Id,
+                                ProductId=product.Id
+                            };
+                            db.ProductAttributes.Add(productAtt);
+                            if (att.IsTrait)
+                            {
+                                string value = attributes[j].Value<string>("value");
+                                db.TraitValues.Add(new TraitValue
+                                {
+                                    Value = value,
+                                    ProductAttributeId = productAtt.Id,
+                                    ProductAttribute=productAtt
+                                });
+                            }
+                            else
+                            {
+                                double value = attributes[j].Value<double>("value");
+                                db.Measurements.Add(new Measurement
+                                {
+                                    Value = value,
+                                    Unit = unit,
+                                    ProductAttributeId = productAtt.Id,
+                                    ProductAttribute = productAtt
+                                });
+                            }
+                        }                        
+                    }
+                }
             }
             db.ChangeTracker.DetectChanges();
             db.SaveChangesAsync();

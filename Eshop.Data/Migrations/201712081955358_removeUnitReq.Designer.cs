@@ -7,13 +7,13 @@ namespace Eshop.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UniqueTag : IMigrationMetadata
+    public sealed partial class removeUnitReq : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UniqueTag));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(removeUnitReq));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712081518408_UniqueTag"; }
+            get { return "201712081955358_removeUnitReq"; }
         }
         
         string IMigrationMetadata.Source

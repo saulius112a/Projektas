@@ -77,13 +77,13 @@
     <Compile Include="Entities\TraitValue.cs" />
     <Compile Include="Entities\WishList.cs" />
     <Compile Include="Entities\WishListProduct.cs" />
-    <Compile Include="Migrations\201712070923098_initial.cs" />
-    <Compile Include="Migrations\201712070923098_initial.Designer.cs">
-      <DependentUpon>201712070923098_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201712081947056_initial.cs" />
+    <Compile Include="Migrations\201712081947056_initial.Designer.cs">
+      <DependentUpon>201712081947056_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712081518408_UniqueTag.cs" />
-    <Compile Include="Migrations\201712081518408_UniqueTag.Designer.cs">
-      <DependentUpon>201712081518408_UniqueTag.cs</DependentUpon>
+    <Compile Include="Migrations\201712081955358_removeUnitReq.cs" />
+    <Compile Include="Migrations\201712081955358_removeUnitReq.Designer.cs">
+      <DependentUpon>201712081955358_removeUnitReq.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountInfoModel.cs" />
@@ -111,11 +111,11 @@
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712070923098_initial.resx">
-      <DependentUpon>201712070923098_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712081947056_initial.resx">
+      <DependentUpon>201712081947056_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712081518408_UniqueTag.resx">
-      <DependentUpon>201712081518408_UniqueTag.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712081955358_removeUnitReq.resx">
+      <DependentUpon>201712081955358_removeUnitReq.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

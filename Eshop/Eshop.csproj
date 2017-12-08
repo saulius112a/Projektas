@@ -311,6 +311,7 @@
     <Content Include="Views\Product\Upload.cshtml" />
     <Content Include="Views\Product\UploadCategories.cshtml" />
     <Content Include="Views\Product\UploadAttributes.cshtml" />
+    <Content Include="Views\Product\UploadProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

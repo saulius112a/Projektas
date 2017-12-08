@@ -28,6 +28,7 @@ namespace Eshop.BusinessLogic
         void InsertManufacturersFromJsonFile(StreamReader reader);
         void InsertCategoriesFromJsonFile(StreamReader reader);
         void InsertCategoryAttributesFromJsonFile(StreamReader reader);
+        void InsertProductsFromJsonFile(StreamReader reader);
         List<Manufacturer> GetManufacturers();
         Category GetCategory(int id);
     }

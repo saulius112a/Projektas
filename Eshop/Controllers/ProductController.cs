@@ -115,14 +115,47 @@ namespace Eshop.Controllers
             //return RedirectToAction("Index");
             return View();
         }
-        public ActionResult Upload()
-        {
-            return View();
-        }
         public ActionResult UploadAttributes()
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UploadProducts(HttpPostedFileBase upload)
+        {
+            if (ModelState.IsValid)
+            {
+                if (upload != null || upload.ContentLength > 0)
+                {
+                    if (upload.FileName.EndsWith(".json"))
+                    {
+                        Stream stream = upload.InputStream;
+                        Repository.InsertProductsFromJsonFile(new StreamReader(stream));
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("File", "This file format is not supported");
+                        return View();
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("File", "Please Upload Your file");
+                }
+            }
+            //return RedirectToAction("Index");
+            return View();
+        }
+        public ActionResult UploadProducts()
+        {
+            return View();
+        }
+        public ActionResult Upload()
+        {
+            return View();
+        }
+        
         // GET: Product/Details/5
         public ActionResult Details(int id)
         {

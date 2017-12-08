@@ -15,7 +15,7 @@ namespace Eshop.Data.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public double Weight { get; set; }
-        public string ProductCoode { get; set; }
+        public string ProductCode { get; set; }
         
         [Required]
         public double Price { get; set; }
