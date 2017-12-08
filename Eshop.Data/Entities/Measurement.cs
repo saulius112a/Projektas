@@ -13,11 +13,10 @@ namespace Eshop.Data.Entities
         [Key]
         [ForeignKey("ProductAttribute")]
         public int ProductAttributeId { get; set; }
-        [Required]
         public string Unit { get; set; }
         [Required]
         public double Value { get; set; }
-        [Key]
+        //[Key]
         [Required]
         public virtual ProductAttribute ProductAttribute { get; set; }
     }

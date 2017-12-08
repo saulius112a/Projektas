@@ -1,0 +1,49 @@
+﻿@model Eshop.Data.Models.CategoryModel
+@{ ViewBag.Title = "Add Attributes";}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Details</legend>
+        @Html.HiddenFor(model=> model.Id)
+        @Html.DisplayFor(model => model.Id)
+        <div class="editor-label">
+            @Html.LabelFor(model=>model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Category Attributes</legend>
+        @if (Model.Attributes == null || Model.Attributes.Count == 0)
+        {
+            <p>None.</p>
+        }
+        <ul id="attributes" style="list-style-type: none">
+            @if (Model.Attributes != null)
+            {
+                foreach (Eshop.Data.Entities.Attribute attribute in Model.Attributes)
+                {
+                    Html.RenderPartial("AttributeEntryEditor", attribute);
+                }
+            }
+        </ul>         
+        <a id="addAnother" href="#">Add another</a>
+        <script type="text/javascript">
+            $(function () {
+                $("#addAnother").click(function () {
+                    $.get('/Product/AttributeEntryRow', function (template) {
+                        $("#attributes").append(template);
+                    });
+                });
+            });
+        </script>
+    </fieldset>
+    
+    <p>
+        <input type="submit" value="Save" />
+        <a href="/">Cancel</a>
+    </p>
+}

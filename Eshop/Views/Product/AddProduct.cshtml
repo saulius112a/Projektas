@@ -1,0 +1,131 @@
+﻿@model Eshop.Data.Models.ProductModel
+@{
+    ViewBag.Title = "Create";
+}
+<h2>Create</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <fieldset>
+        @Html.HiddenFor(model => model.Category)
+        @Html.HiddenFor(model => model.Category.Name)
+        <h4>Category: @Html.DisplayFor(model=> model.Category.Name)</h4>
+        <legend>Product Details</legend>
+        @Html.HiddenFor(model => model.CategoryId)
+        
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductCoode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductCoode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductCoode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Color, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Manufacturer, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.ManufacturerId,
+         (IEnumerable<SelectListItem>)ViewBag.ManufacturerId,
+         new
+         {
+             @class = "selectpicker",
+             @Value = @Model.ManufacturerId,
+             //onchange = "this.form.submit();",
+             data_show_subtext = "true",
+             data_live_search = "true"
+         })
+            </div>
+        </div>
+            
+
+            <!--<div class="form-group">
+            <label class="control-label col-md-2" for="ManufacturerId">Manufacturer</label>
+            <div class="col-md-10">
+                @Html.DropDownList("ManufacturerId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ManufacturerId, "", new { @class = "text-danger" })
+            </div>
+        </div>-->
+</fieldset>
+    <fieldset>
+            <legend>Attributes</legend>
+            <div class="form-group">
+                @Html.HiddenFor(model => model.Category.Attributes)
+                @Html.HiddenFor(model => model.Category)
+                @Html.HiddenFor(model => model.Category.Id)
+                @if (Model.Category.Attributes != null|| Model.Category.Attributes.Count>0)
+                {
+                    for (int i = 0; i < Model.Category.Attributes.Count; i++)
+                    {
+                        if (Model.Category.Attributes[i].IsTrait)
+                        {
+                            <div class="form-group">
+                                @Html.DisplayFor(model => Model.Category.Attributes[i].Name)
+                                @Html.EditorFor(model => model.Attributes[i].TraitValue.Value, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Attributes[i].TraitValue.Value, "", new { @class = "text-danger" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @Html.DisplayFor(model => Model.Category.Attributes[i].Name)
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.Attributes[i].Measurement.Value)
+                                    @Html.ValidationMessageFor(model => model.Attributes[i].Measurement.Value, "", new { @class = "text-danger" })
+                                    @Html.LabelFor(model => model.Attributes[i].Measurement.Unit)
+                                    @Html.EditorFor(model => model.Attributes[i].Measurement.Unit)
+                                    @Html.ValidationMessageFor(model => model.Attributes[i].Measurement.Unit, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+             </div>
+    </fieldset>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+    <script type="text/javascript">
+        
+    </script>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
