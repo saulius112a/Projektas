@@ -81,11 +81,18 @@
     <Compile Include="Migrations\201712070923098_initial.Designer.cs">
       <DependentUpon>201712070923098_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712081518408_UniqueTag.cs" />
+    <Compile Include="Migrations\201712081518408_UniqueTag.Designer.cs">
+      <DependentUpon>201712081518408_UniqueTag.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountInfoModel.cs" />
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\AttributeModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\LoginLogsModel.cs" />
+    <Compile Include="Models\ManufacturerModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -106,6 +113,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712070923098_initial.resx">
       <DependentUpon>201712070923098_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712081518408_UniqueTag.resx">
+      <DependentUpon>201712081518408_UniqueTag.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

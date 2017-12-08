@@ -15,6 +15,7 @@ namespace Eshop.Data.Models
         public virtual Category Parent { get; set; }
         public int? ParentId { get; set; }
         public virtual ICollection<Category> SubCategories { get; set; }
+        public virtual IList<Entities.Attribute> Attributes { get; set; }
         public static explicit operator CategoryModel(Category c)
         {
             return new CategoryModel
@@ -24,7 +25,8 @@ namespace Eshop.Data.Models
                 Id=c.Id,
                 ParentId=c.ParentId,
                 Parent=c.Parent,
-                SubCategories=c.SubCategories
+                SubCategories=c.SubCategories,
+                Attributes=c.Attributes
             };
         }
         public static explicit operator Category(CategoryModel c)
@@ -36,7 +38,8 @@ namespace Eshop.Data.Models
                 Id=c.Id,
                 ParentId=c.ParentId,
                 Parent = c.Parent,
-                SubCategories = c.SubCategories
+                SubCategories = c.SubCategories,
+                Attributes = c.Attributes
             };
         }
     }
