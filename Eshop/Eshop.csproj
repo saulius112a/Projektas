@@ -177,7 +177,9 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManufacturerController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -312,25 +314,26 @@
     <Content Include="Views\Account\LogOut.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
-    <Content Include="Views\Product\AddAttributes.cshtml" />
     <Content Include="Views\Product\AddProduct.cshtml" />
     <Content Include="Views\Product\AttributeEntryEditor.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
-    <Content Include="Views\Product\CreateManufacturer.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\Upload.cshtml" />
-    <Content Include="Views\Product\UploadCategories.cshtml" />
-    <Content Include="Views\Product\UploadAttributes.cshtml" />
     <Content Include="Views\Product\UploadProducts.cshtml" />
     <Content Include="Views\Product\Product.cshtml" />
-    <Content Include="Views\Product\Category.cshtml" />
-    <Content Include="Views\Product\Manufacturer.cshtml" />
-    <Content Include="Views\Product\CategoryList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
-    <Content Include="Views\Product\EditCategory.cshtml" />
-    <Content Include="Views\Product\EditManufacturer.cshtml" />
     <Content Include="Views\Product\SelectCategory.cshtml" />
     <Content Include="Views\Product\EditProduct.cshtml" />
+    <Content Include="Views\Category\AddAttributes.cshtml" />
+    <Content Include="Views\Category\AttributeEntryEditor.cshtml" />
+    <Content Include="Views\Category\CategoryList.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\UploadCategories.cshtml" />
+    <Content Include="Views\Category\UploadAttributes.cshtml" />
+    <Content Include="Views\Category\EditCategory.cshtml" />
+    <Content Include="Views\Manufacturer\Index.cshtml" />
+    <Content Include="Views\Manufacturer\CreateManufacturer.cshtml" />
+    <Content Include="Views\Manufacturer\EditManufacturer.cshtml" />
+    <Content Include="Views\Manufacturer\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

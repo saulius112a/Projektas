@@ -111,7 +111,6 @@ namespace Eshop.BusinessLogic
             });
             return res;
         }
-
         public void InsertCategory(Category category)
         {
             if (category.ParentId == 0)
@@ -121,7 +120,6 @@ namespace Eshop.BusinessLogic
             db.Categories.Add(category);
             db.SaveChangesAsync();
         }
-
         public void InsertAttributes(Category category)
         {
             if (category.Attributes == null || category.Attributes.Count <= 0)
@@ -133,13 +131,11 @@ namespace Eshop.BusinessLogic
             cat.Attributes = category.Attributes;
             db.SaveChangesAsync();
         }
-
         public void InsertManufacturer(Manufacturer manufacturer)
         {
             db.Manufacturers.Add(manufacturer);
             db.SaveChangesAsync();
         }
-
         public void InsertManufacturersFromJsonFile(StreamReader reader)
         {
             string json = reader.ReadToEnd();
@@ -490,8 +486,6 @@ namespace Eshop.BusinessLogic
                 oldProduct.ManufacturerId = product.ManufacturerId;
                 for(int i = 0; i < product.Attributes.Count; i++)
                 {
-                    /*product.Attributes[i].AttributeId = oldProduct.Category.Attributes[i].Id;
-                    product.Attributes[i].Attribute = oldProduct.Category.Attributes[i];*/
                     if (oldProduct.Category.Attributes[i].IsTrait)
                     {
                         oldProduct.Attributes[i].TraitValue.Value = product.Attributes[i].TraitValue.Value;
@@ -501,10 +495,8 @@ namespace Eshop.BusinessLogic
                         oldProduct.Attributes[i].Measurement.Value = product.Attributes[i].Measurement.Value;
                         oldProduct.Attributes[i].Measurement.Unit = product.Attributes[i].Measurement.Unit;
 
-                    }
-                    
-                }
-                
+                    } 
+                }  
             }
             db.SaveChangesAsync();
         }

@@ -1,4 +1,5 @@
-﻿@model PagedList.IPagedList<Eshop.Data.Entities.Manufacturer>
+﻿
+@model PagedList.IPagedList<Eshop.Data.Entities.Manufacturer>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
@@ -39,10 +40,10 @@
             </td>
             <td>
                 <a href=@item.WebLink>@Html.DisplayFor(modelItem => item.WebLink)</a>
-                
+
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditManufacturer", new { id = item.Id }) 
+                @Html.ActionLink("Edit", "EditManufacturer", new { id = item.Id })
             </td>
         </tr>
     }
