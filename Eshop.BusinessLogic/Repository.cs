@@ -19,21 +19,6 @@ namespace Eshop.BusinessLogic
         {
             this.db = db;
         }
-        public JsonResult GetCategories()
-        {
-            var rez= db.Categories.Where(c => c.SubCategories.ToList().Count > 0).Select(x=>new
-            {
-                x.Name,
-                x.ParentId,
-                subCat = x.SubCategories.Select(y =>new
-                {
-                    y.Name,
-                    y.ParentId
-                })
-            }).ToList();
-
-            return new JsonResult() { Data = rez, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
         public void InsertCategory()
         {
             db.SaveChangesAsync();
@@ -209,11 +194,11 @@ namespace Eshop.BusinessLogic
                 if (cat != null)
                 {
                     cat.Name = name;
-                    cat.Description = description;
-                    cat.Parent = parentEnt;
+                    cat.Description = description;              
                     if (parentEnt != null)
                     {
                         cat.ParentId = parentEnt.Id;
+                        cat.Parent = parentEnt;
                     }
                 }
                 else
@@ -221,15 +206,25 @@ namespace Eshop.BusinessLogic
                     Category newCat = new Category
                     {
                         Name = name,
-                        Description = description,
-                        Parent = parentEnt
+                        Description = description
                     };
+                    
                     if (parentEnt != null)
                     {
                         newCat.ParentId = parentEnt.Id;
+                        newCat.Parent = parentEnt;
                     }
-                    
-                db.Categories.Add(newCat);
+                    if (parent == null)
+                    {
+                        db.ChangeTracker.DetectChanges();
+                        db.Categories.Add(newCat);
+                        db.SaveChangesAsync();
+                        db.Configuration.AutoDetectChangesEnabled = false;
+                    }
+                    else
+                    {
+                        db.Categories.Add(newCat);
+                    } 
                 }
             }
             db.ChangeTracker.DetectChanges();
@@ -432,14 +427,53 @@ namespace Eshop.BusinessLogic
             db.SaveChangesAsync();
         }
 
-        public List<Manufacturer> GetManufacturers()
+        public List<Manufacturer> GetManufacturers(string searchString=null)
         {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return db.Manufacturers.Where(x => x.Name.Contains(searchString)).ToList();
+            }
             return db.Manufacturers.ToList();
+        }
+        public List<Category> GetCategories(string searchString)
+        {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return db.Categories.Where(x => x.Name.Contains(searchString)).ToList();
+            }
+            return db.Categories.ToList();
         }
 
         public Category GetCategory(int id)
         {
-            throw new NotImplementedException();
+            return db.Categories.Where(x => x.Id == id).FirstOrDefault();
+        }
+        public Manufacturer GetManufacturer(int id)
+        {
+            return db.Manufacturers.Where(x => x.Id == id).FirstOrDefault();
+        }
+        public void EditManufacturer(Manufacturer manufacturer)
+        {
+            var oldManufacturer = db.Manufacturers.Where(x => x.Id == manufacturer.Id).FirstOrDefault();
+            if (oldManufacturer != null)
+            {
+                oldManufacturer.Name = manufacturer.Name;
+                oldManufacturer.Description = manufacturer.Description;
+                oldManufacturer.WebLink = manufacturer.WebLink;
+            }
+            db.SaveChangesAsync();
+        }
+        public void EditCategory(Category cat)
+        {
+            var oldCategory = db.Categories.Where(x => x.Id == cat.Id).FirstOrDefault();
+            if (oldCategory != null)
+            {
+                oldCategory.Name = cat.Name;
+                oldCategory.Description = cat.Description;
+                oldCategory.ParentId = cat.ParentId;
+                oldCategory.Parent = cat.Parent;
+            }
+            db.SaveChangesAsync();
         }
     }
 }

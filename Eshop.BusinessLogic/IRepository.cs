@@ -29,7 +29,11 @@ namespace Eshop.BusinessLogic
         void InsertCategoriesFromJsonFile(StreamReader reader);
         void InsertCategoryAttributesFromJsonFile(StreamReader reader);
         void InsertProductsFromJsonFile(StreamReader reader);
-        List<Manufacturer> GetManufacturers();
+        List<Manufacturer> GetManufacturers(string searchString=null);
         Category GetCategory(int id);
+        List<Category> GetCategories(string searchString);
+        void EditCategory(Category cat);
+        Manufacturer GetManufacturer(int id);
+        void EditManufacturer(Manufacturer manufacturer);
     }
 }

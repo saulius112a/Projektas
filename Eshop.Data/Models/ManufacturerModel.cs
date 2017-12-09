@@ -9,6 +9,7 @@ namespace Eshop.Data.Models
 {
     public class ManufacturerModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string WebLink { get; set; }
@@ -22,7 +23,8 @@ namespace Eshop.Data.Models
                 Description = m.Description,
                 WebLink = m.WebLink,
                 IconLocation = m.IconLocation,
-                Products = m.Products
+                Products = m.Products,
+                Id=m.Id
             };
         }
         public static explicit operator Manufacturer(ManufacturerModel m)
@@ -33,7 +35,8 @@ namespace Eshop.Data.Models
                 Description = m.Description,
                 WebLink = m.WebLink,
                 IconLocation = m.IconLocation,
-                Products = m.Products
+                Products = m.Products,
+                Id = m.Id
             };
         }
     }

@@ -7,7 +7,6 @@
     <fieldset>
         <legend>Details</legend>
         @Html.HiddenFor(model=> model.Id)
-        @Html.DisplayFor(model => model.Id)
         <div class="editor-label">
             @Html.LabelFor(model=>model.Name)
         </div>
@@ -41,9 +40,11 @@
             });
         </script>
     </fieldset>
-    
     <p>
         <input type="submit" value="Save" />
         <a href="/">Cancel</a>
     </p>
+    <div>
+        @Html.ActionLink("Back to List", "CategoryList")
+    </div>
 }

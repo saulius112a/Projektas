@@ -9,6 +9,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using System.Data.Entity.Infrastructure;
 
 namespace Eshop.Controllers
 {
@@ -26,6 +28,38 @@ namespace Eshop.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        public ActionResult CategoryList(string currentFilter, string searchString,int? page)
+        {
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            var list = Repository.GetCategories(searchString);
+            ViewBag.CurrentFilter = searchString;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(list.ToPagedList(pageNumber,pageSize));
+        }
+        public ActionResult Manufacturer(string currentFilter, string searchString, int? page)
+        {
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            var list = Repository.GetManufacturers(searchString);
+            ViewBag.CurrentFilter = searchString;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(list.ToPagedList(pageNumber, pageSize));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -119,6 +153,74 @@ namespace Eshop.Controllers
         {
             return View();
         }
+        public ActionResult EditManufacturer(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Manufacturer man = Repository.GetManufacturer((int)id);
+            if (man == null)
+            {
+                return HttpNotFound();
+            }
+            return View((ManufacturerModel)man);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditManufacturer(ManufacturerModel manufacturerModel)
+        {
+            if (manufacturerModel.Id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                Repository.EditManufacturer((Manufacturer)manufacturerModel);
+                return RedirectToAction("Manufacturer");
+            }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            return View(manufacturerModel);
+        }
+        public ActionResult EditCategory(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category cat = Repository.GetCategory((int)id);
+            if (cat == null)
+            {
+                return HttpNotFound();
+            }
+            PopulateDropDownList(cat.ParentId);
+            return View((CategoryModel)cat);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCategory(CategoryModel categoryModel)
+        {
+            if (categoryModel.Id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                Repository.EditCategory((Category)categoryModel);
+                return RedirectToAction("CategoryList");
+            }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            PopulateDropDownList(categoryModel.ParentId);
+            return View(categoryModel);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UploadProducts(HttpPostedFileBase upload)
@@ -145,6 +247,14 @@ namespace Eshop.Controllers
                 }
             }
             //return RedirectToAction("Index");
+            return View();
+        }
+        public ActionResult Product()
+        {
+            return View();
+        }
+        public ActionResult Category()
+        {
             return View();
         }
         public ActionResult UploadProducts()

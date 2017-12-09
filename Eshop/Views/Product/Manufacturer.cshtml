@@ -1,0 +1,55 @@
+﻿@model PagedList.IPagedList<Eshop.Data.Entities.Manufacturer>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Manufacturers";
+}
+
+<h2>Manufacturers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateManufacturer") | @Html.ActionLink("Upload Manufacturer", "Upload")
+</p>
+
+@using (Html.BeginForm("Manufacturer", "Product", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Weblink Name
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a href=@item.WebLink>@Html.DisplayFor(modelItem => item.WebLink)</a>
+                
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditManufacturer", new { id = item.Id }) 
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, currentFilter = ViewBag.CurrentFilter }))
