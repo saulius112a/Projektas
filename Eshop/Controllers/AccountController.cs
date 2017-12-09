@@ -65,6 +65,8 @@ namespace Eshop.Controllers
             var logRsp = IsValid(l.Email, l.Password);
             if(String.IsNullOrWhiteSpace(logRsp))
             {
+                Session["role"] = Repository.GetAccountByEmail(l.Email).Role;
+
                 FormsAuthentication.SetAuthCookie(l.Email, false);
                 AccountService.LogLogin(true, l.Email, Request.UserHostAddress);
                 return RedirectToAction("Index", "Home");

@@ -51,6 +51,7 @@ namespace Eshop.App_Start
 
                 //Bindings
                 kernel.Bind<IAccountService>().To<AccountService>();
+                kernel.Bind<IAdminService>().To<AdminService>();
 
                 RegisterServices(kernel);
                 return kernel;

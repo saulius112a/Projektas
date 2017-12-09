@@ -34,6 +34,8 @@
                 {
                     <strong>@Html.ActionLink(@Html.Encode(User.Identity.Name), "Profile", "Account")</strong>
                     @Html.ActionLink("Log Out", "LogOut", "Account")
+
+                    @Html.Encode(Session["role"])
                 }
                 else
                 {

@@ -441,5 +441,10 @@ namespace Eshop.BusinessLogic
         {
             throw new NotImplementedException();
         }
+
+        public List<Account> GetAccountList()
+        {
+            return db.Accounts.ToList();
+        }
     }
 }
