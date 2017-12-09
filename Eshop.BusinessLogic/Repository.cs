@@ -443,7 +443,18 @@ namespace Eshop.BusinessLogic
             }
             return db.Categories.ToList();
         }
-
+        public List<Product> GetProducts(string searchString)
+        {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return db.Products.Where(x => x.Name.Contains(searchString)||x.ProductCode.Contains(searchString)).ToList();
+            }
+            return db.Products.ToList();
+        }
+        public Product GetProduct(int id)
+        {
+            return db.Products.Where(x=>x.Id==id).FirstOrDefault();
+        }
         public Category GetCategory(int id)
         {
             return db.Categories.Where(x => x.Id == id).FirstOrDefault();
@@ -461,6 +472,46 @@ namespace Eshop.BusinessLogic
                 oldManufacturer.Description = manufacturer.Description;
                 oldManufacturer.WebLink = manufacturer.WebLink;
             }
+            db.SaveChangesAsync();
+        }
+        public void EditProduct(Product product)
+        {
+            var oldProduct = db.Products.Where(x => x.Id == product.Id).FirstOrDefault();
+            if (oldProduct != null)
+            {
+                oldProduct.Name = product.Name;
+                oldProduct.Weight = product.Weight;
+                oldProduct.Description = product.Description;
+                oldProduct.ProductCode = product.ProductCode;
+                oldProduct.Price = product.Price;
+                oldProduct.Color = product.Color;
+                oldProduct.UpdateDate = DateTime.Now;
+                oldProduct.IsDiscounted = product.IsDiscounted;
+                oldProduct.ManufacturerId = product.ManufacturerId;
+                for(int i = 0; i < product.Attributes.Count; i++)
+                {
+                    /*product.Attributes[i].AttributeId = oldProduct.Category.Attributes[i].Id;
+                    product.Attributes[i].Attribute = oldProduct.Category.Attributes[i];*/
+                    if (oldProduct.Category.Attributes[i].IsTrait)
+                    {
+                        oldProduct.Attributes[i].TraitValue.Value = product.Attributes[i].TraitValue.Value;
+                    }
+                    else
+                    {
+                        oldProduct.Attributes[i].Measurement.Value = product.Attributes[i].Measurement.Value;
+                        oldProduct.Attributes[i].Measurement.Unit = product.Attributes[i].Measurement.Unit;
+
+                    }
+                    
+                }
+                
+            }
+            db.SaveChangesAsync();
+        }
+        public void InsertProduct(Product product)
+        {
+            db.Products.Add(product);
+
             db.SaveChangesAsync();
         }
         public void EditCategory(Category cat)

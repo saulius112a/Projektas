@@ -5,6 +5,9 @@
     ViewBag.Title = "Categories";
 }
 <h2>Categories</h2>
+<p>
+    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("Upload Categories", "UploadCategories")
+</p>
 @using (Html.BeginForm("CategoryList", "Product", FormMethod.Get))
 {
     <p>
@@ -17,15 +20,19 @@
         <th>
             Category Name
         </th>
+        <th>
+            Parent Category
+        </th>
         <th></th>
     </tr>
-
-
     @foreach (var item in Model)
     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parent.Name)
             </td>
             <td>
                 @Html.ActionLink("Edit", "EditCategory", new { id = item.Id }) |
@@ -36,7 +43,6 @@
             </td>
         </tr>
     }
-
 </table>
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

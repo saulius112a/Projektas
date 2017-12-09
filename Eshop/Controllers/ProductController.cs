@@ -45,6 +45,38 @@ namespace Eshop.Controllers
             int pageNumber = (page ?? 1);
             return View(list.ToPagedList(pageNumber,pageSize));
         }
+        public ActionResult Product(string currentFilter, string searchString, int? page)
+        {
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            var list = Repository.GetProducts(searchString);
+            ViewBag.CurrentFilter = searchString;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(list.ToPagedList(pageNumber, pageSize));
+        }
+        public ActionResult SelectCategory(string currentFilter, string searchString, int? page)
+        {
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            var list = Repository.GetCategories(searchString);
+            ViewBag.CurrentFilter = searchString;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(list.ToPagedList(pageNumber, pageSize));
+        }
         public ActionResult Manufacturer(string currentFilter, string searchString, int? page)
         {
             if (searchString != null)
@@ -151,8 +183,10 @@ namespace Eshop.Controllers
         }
         public ActionResult UploadAttributes()
         {
+           
             return View();
         }
+        
         public ActionResult EditManufacturer(int? id)
         {
             if (id == null)
@@ -221,6 +255,7 @@ namespace Eshop.Controllers
             PopulateDropDownList(categoryModel.ParentId);
             return View(categoryModel);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UploadProducts(HttpPostedFileBase upload)
@@ -249,10 +284,7 @@ namespace Eshop.Controllers
             //return RedirectToAction("Index");
             return View();
         }
-        public ActionResult Product()
-        {
-            return View();
-        }
+        
         public ActionResult Category()
         {
             return View();
@@ -275,20 +307,56 @@ namespace Eshop.Controllers
         {
             return PartialView("AttributeEntryEditor");
         }
-        public ActionResult AddProduct(int? id)
+        public ActionResult EditProduct(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category cat = Repository.GetCategory((int)id);
+            Product product = Repository.GetProduct((int)id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            PopulateManufacturerList(product.ManufacturerId);
+            return View((ProductModel)product);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProduct(ProductModel productModel)
+        {
+            if (productModel.Id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                Repository.EditProduct((Product)productModel);
+                return RedirectToAction("Manufacturer");
+            }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            PopulateManufacturerList(productModel.ManufacturerId);
+            return View(productModel);
+        }
+        public ActionResult AddProduct(int? categoryId)
+        {
+            if (categoryId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category cat = Repository.GetCategory((int)categoryId);
             if (cat == null)
             {
                 return HttpNotFound();
             }
             ProductModel product = new ProductModel
             {
-                Category = cat
+                Category = cat,
+                CategoryId=cat.Id
             };
             PopulateManufacturerList();
             return View(product);
@@ -297,13 +365,33 @@ namespace Eshop.Controllers
         {
             var list = Repository.GetManufacturers();
 
-            ViewBag.ManufacturerId = new SelectList(list, "Id", "Name");
+            ViewBag.ManufacturerId = new SelectList(list, "Id", "Name", selectedManufacturer);
         }
         [HttpPost]
         public ActionResult AddProduct(ProductModel product)
         {
+            product.Category = Repository.GetCategory(product.CategoryId);
+            product.Manufacturer = Repository.GetManufacturer(product.ManufacturerId);
+            product.CreationDate = DateTime.Now;
+            product.UpdateDate = DateTime.Now;
+            for(int i = 0; i < product.Attributes.Count; i++)
+            {
+                product.Attributes[i].Attribute = product.Category.Attributes[i];
+                product.Attributes[i].AttributeId = product.Category.Attributes[i].Id;
+            }
+            try
+            {
+                    Repository.InsertProduct((Product)product);
+                    return RedirectToAction("Product");
+                // TODO: Add insert logic here
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+
+            }
             PopulateManufacturerList(product.ManufacturerId);
-            return View();
+            return View(product);
         }
         [HttpPost]
         public ActionResult AddAttributes(CategoryModel category)
@@ -369,8 +457,6 @@ namespace Eshop.Controllers
                     return RedirectToAction("Index");
                 }
                 // TODO: Add insert logic here
-
-
             }
             catch
             {

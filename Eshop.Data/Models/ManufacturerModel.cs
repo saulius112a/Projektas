@@ -14,6 +14,7 @@ namespace Eshop.Data.Models
         public string Description { get; set; }
         public string WebLink { get; set; }
         public string IconLocation { get; set; }
+
         public virtual ICollection<Product> Products { get; set; }
         public static explicit operator ManufacturerModel(Manufacturer m)
         {

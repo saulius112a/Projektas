@@ -329,6 +329,8 @@
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\Product\EditCategory.cshtml" />
     <Content Include="Views\Product\EditManufacturer.cshtml" />
+    <Content Include="Views\Product\SelectCategory.cshtml" />
+    <Content Include="Views\Product\EditProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

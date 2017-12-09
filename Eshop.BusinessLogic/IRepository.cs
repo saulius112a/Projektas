@@ -35,5 +35,9 @@ namespace Eshop.BusinessLogic
         void EditCategory(Category cat);
         Manufacturer GetManufacturer(int id);
         void EditManufacturer(Manufacturer manufacturer);
+        List<Product> GetProducts(string searchString);
+        Product GetProduct(int id);
+        void EditProduct(Product product);
+        void InsertProduct(Product product);
     }
 }

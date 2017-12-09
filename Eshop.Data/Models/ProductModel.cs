@@ -22,7 +22,7 @@ namespace Eshop.Data.Models
         public virtual Manufacturer Manufacturer { get; set; }
         public virtual IList<ProductAttribute> Attributes { get; set; }
         public virtual ICollection<ProductPic> Pics { get; set; }
-        public virtual Discount Discount { get; set; }
+        //public virtual Discount Discount { get; set; }
         public int ManufacturerId { get; set; }
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
@@ -39,7 +39,10 @@ namespace Eshop.Data.Models
                 UpdateDate = p.UpdateDate,
                 IsDiscounted = p.IsDiscounted,
                 CategoryId=p.CategoryId,
-                Category=p.Category
+                Category=p.Category,
+                ManufacturerId=p.ManufacturerId,
+                Manufacturer=p.Manufacturer,
+                Attributes=p.Attributes
             };
         }
         public static explicit operator Product(ProductModel p)
@@ -55,7 +58,10 @@ namespace Eshop.Data.Models
                 UpdateDate = p.UpdateDate,
                 IsDiscounted = p.IsDiscounted,
                 CategoryId = p.CategoryId,
-                Category = p.Category
+                Category = p.Category,
+                ManufacturerId = p.ManufacturerId,
+                Manufacturer = p.Manufacturer,
+                Attributes = p.Attributes
             };
         }
     }

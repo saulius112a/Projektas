@@ -1,18 +1,11 @@
-﻿@model PagedList.IPagedList<Eshop.Data.Entities.Manufacturer>
+﻿@model PagedList.IPagedList<Eshop.Data.Entities.Category>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
 @{
-    ViewBag.Title = "Manufacturers";
+    ViewBag.Title = "Categories";
 }
-
-<h2>Manufacturers</h2>
-
-<p>
-    @Html.ActionLink("Create New", "CreateManufacturer") | @Html.ActionLink("Upload Manufacturers", "Upload")
-</p>
-
-@using (Html.BeginForm("Manufacturer", "Product", FormMethod.Get))
+<h2>Select Category</h2>
+@using (Html.BeginForm("SlectCategory", "Product", FormMethod.Get))
 {
     <p>
         Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
@@ -22,15 +15,13 @@
 <table class="table">
     <tr>
         <th>
-            Name
+            Category Name
         </th>
         <th>
-            Weblink Name
+            Parent Category
         </th>
         <th></th>
     </tr>
-
-
     @foreach (var item in Model)
     {
         <tr>
@@ -38,18 +29,15 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <a href=@item.WebLink>@Html.DisplayFor(modelItem => item.WebLink)</a>
-                
+                @Html.DisplayFor(modelItem => item.Parent.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditManufacturer", new { id = item.Id }) 
+                @Html.ActionLink("Select", "AddProduct", new { categoryId = item.Id })
             </td>
         </tr>
     }
-
 </table>
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
+@Html.PagedListPager(Model, page => Url.Action("CategoryList",
     new { page, currentFilter = ViewBag.CurrentFilter }))
