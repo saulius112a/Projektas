@@ -32,5 +32,6 @@ namespace Eshop.BusinessLogic
         List<Manufacturer> GetManufacturers();
         Category GetCategory(int id);
         List<Account> GetAccountList();
+        void DeleteAccount(int accountId);
     }
 }

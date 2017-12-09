@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -444,7 +445,19 @@ namespace Eshop.BusinessLogic
 
         public List<Account> GetAccountList()
         {
-            return db.Accounts.ToList();
+            return db.Accounts.Include(x => x.AccountInfo).ToList();
+        }
+
+        public void DeleteAccount(int accountId)
+        {
+            AccountInfo accountInfo;
+            while ((accountInfo = GetAccountInfo(accountId)) != null)
+            {
+                db.AccountInfos.Remove(accountInfo);
+                db.SaveChanges();
+            }
+            db.Accounts.Remove(db.Accounts.Where(x => x.Id == accountId).FirstOrDefault());
+            db.SaveChanges();
         }
     }
 }

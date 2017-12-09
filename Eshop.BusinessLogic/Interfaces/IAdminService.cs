@@ -1,4 +1,5 @@
-﻿using Eshop.Data.Models;
+﻿using Eshop.Data.Entities;
+using Eshop.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Eshop.BusinessLogic.Interfaces
 {
     public interface IAdminService
     {
-        List<AccountModel> GetClientAccountList();
-        List<AccountModel> GetEmployeeAccountList();
+        List<Account> GetClientAccountList();
+        List<Account> GetEmployeeAccountList();
     }
 }

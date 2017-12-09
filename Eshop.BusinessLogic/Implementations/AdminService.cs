@@ -15,14 +15,17 @@ namespace Eshop.BusinessLogic.Implementations
             Repository = repo;
         }
 
-        public List<AccountModel> GetClientAccountList()
+        public List<Account> GetClientAccountList()
         {
-            return Repository.GetAccountList().Where(x => x.Role == Account.AccRole.client).Cast<AccountModel>().ToList();
+            return Repository.GetAccountList().Where(x => x.Role == Account.AccRole.client ).ToList();
+
         }
 
-        public List<AccountModel> GetEmployeeAccountList()
+        public List<Account> GetEmployeeAccountList()
         {
-            return Repository.GetAccountList().Where(x => x.Role == Account.AccRole.employee).Cast<AccountModel>().ToList();
+            return Repository.GetAccountList().Where(x => x.Role == Account.AccRole.employee).ToList();
         }
+        
+        
     }
 }
