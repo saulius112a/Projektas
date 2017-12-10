@@ -1,0 +1,18 @@
+﻿@model Eshop.Data.Entities.Attribute
+<li style="padding-bottom:15px">
+    @using (Html.BeginCollectionItem("Attributes"))
+    {
+        @Html.LabelFor(model => model.Name)
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name);
+
+        @Html.LabelFor(model => model.Description)
+        @Html.TextAreaFor(model => model.Description)
+        @Html.ValidationMessageFor(model => model.Description);
+
+        @Html.LabelFor(model => model.IsTrait)
+        @Html.CheckBoxFor(model => model.IsTrait)
+        @Html.ValidationMessageFor(model => model.IsTrait);
+        <a href="#" onclick="$(this).parent().remove();">Delete</a>
+    }
+</li>

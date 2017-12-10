@@ -1,0 +1,105 @@
+﻿@model Eshop.Models.FilterViewModel
+@{
+    ViewBag.Title = "Categories";
+}
+@using PagedList.Mvc;
+<h1>Filtrai</h1>
+<div style="height:100%; width:100%; overflow: hidden;">
+    @using (Html.BeginForm())
+    {
+        
+        @Html.HiddenFor(model => model.CategoryId)
+        <div style="float: left;">
+            <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Ieskoti" class="btn btn-default" />
+            </div>
+            </div>
+            <div id="TempList" style="list-style-type: none">
+                <div>Pavadinimas</div>
+                @Html.EditorFor(model => model.SearchString)
+                <div>Min. kaina</div>
+                @Html.EditorFor(model => model.MinPrice)
+                <div>Max. kaina</div>
+                @Html.EditorFor(model => model.MaxPrice)
+                <div>
+                    @for (int i = 0; i < Model.Attributes.Count; i++)
+                    {
+                        <h4>@Model.Attributes[i].Name</h4>
+                        if (Model.Attributes[i].IsTrait)
+                        {
+                            for (int j = 0; j < Model.FilterAttributes[i].List.Count; j++)
+                            {
+                                <div>
+                                    @Html.HiddenFor(model => model.FilterAttributes[i].List[j].Name)
+                                    @Html.HiddenFor(model => model.FilterAttributes[i].List[j].StringValue)
+                                    @Html.DisplayFor(model => model.FilterAttributes[i].List[j].StringValue)  @Html.CheckBoxFor(model => model.FilterAttributes[i].List[j].Checked)
+                                </div>
+
+                            }
+                        }
+                        else
+                        {
+                            for (int j = 0; j < Model.FilterAttributes[i].List.Count; j++)
+                            {
+                                <div>
+                                    @Html.HiddenFor(model => model.FilterAttributes[i].List[j].Name)
+                                    @Html.HiddenFor(model => model.FilterAttributes[i].List[j].Value)
+                                    @Html.DisplayFor(model => model.FilterAttributes[i].List[j].Value)  @Html.CheckBoxFor(model => model.FilterAttributes[i].List[j].Checked)
+                                </div>
+
+                            }
+
+                        }
+                    }
+                </div>
+            </div>
+            
+        </div>
+
+
+        <div style="float: left; padding-left:20px">
+            <table class="table">
+                <tr>
+                    <th>
+                        Pavadinimas
+                    </th>
+                    <th>
+                        Prekes Kodas
+                    </th>
+                    <th>Spalva</th>
+                    <th>Kaina</th>
+                    
+                </tr>
+                @foreach (var item in Model.Products)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Color)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Perziureti", "Details", new { id = item.Id }) 
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <br />
+
+    }
+</div>
+
+
+
+
+

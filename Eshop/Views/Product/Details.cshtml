@@ -1,0 +1,80 @@
+﻿@model Eshop.Data.Models.ProductModel
+@{
+    ViewBag.Title = "Aprašymas";
+}
+<h2>Detales</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <legend>@Model.Name</legend>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            
+            <b>Aprašymas</b> 
+            <div >
+                @Html.DisplayFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+           <b>Svoris</b> 
+            <div >
+                @Html.DisplayFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <b>Produkto Kodas</b> 
+            <div >
+                @Html.DisplayFor(model => model.ProductCode, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <b>Kaina</b>
+            <div >
+                @Html.DisplayFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <b>Spalva</b>
+            <div >
+                @Html.DisplayFor(model => model.Color, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <b>Gamintojas</b>
+            <div >
+                @Html.DisplayFor(model => Model.Manufacturer.Name)
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Specifikacija</legend>
+        <div class="form-group">
+            @if (Model.Category.Attributes != null || Model.Category.Attributes.Count > 0)
+            {
+                for (int i = 0; i < Model.Category.Attributes.Count; i++)
+                {
+
+                    if (Model.Category.Attributes[i].IsTrait)
+                    {
+                        <div class="form-group">
+                            @Html.DisplayFor(model => Model.Category.Attributes[i].Name)
+                            @Html.DisplayFor(model => model.Attributes[i].TraitValue.Value, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <b>@Model.Category.Attributes[i].Name</b>
+                            <div class="form-group">
+                                @Html.DisplayFor(model => model.Attributes[i].Measurement.Value)
+                                @Html.ValidationMessageFor(model => model.Attributes[i].Measurement.Value, "", new { @class = "text-danger" }) 
+                                @Html.DisplayFor(model => model.Attributes[i].Measurement.Unit)
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </fieldset>
+}

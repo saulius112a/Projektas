@@ -24,7 +24,7 @@ namespace Eshop.Data.Entities
         public DateTime UpdateDate { get; set; }
         public bool IsDiscounted { get; set; }
         public virtual Manufacturer Manufacturer { get; set; }
-        public virtual ICollection<ProductAttribute> Attributes { get; set; }
+        public virtual IList<ProductAttribute> Attributes { get; set; }
         public virtual ICollection<ProductPic> Pics { get; set; }
         public virtual Discount Discount { get; set; }
 

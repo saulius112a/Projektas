@@ -7,9 +7,10 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/bootstrap-select.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/modernizr-2.6.2.js")" type="text/javascript"></script>
-    <LINK href="~/Content/bootstrap-select.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,6 +28,8 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Darbuotojam", "Index", "Product")</li>
+                    <li>@Html.ActionLink("Pirkejam", "Categories", "Product")</li>
                 </ul>
             </div>
             <div style="width:auto; background-color:aqua">
@@ -47,7 +50,7 @@
         </div>
     </div>
     <div class="container body-content">
-        @RenderBody()
+        @RenderBody()      
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Eshop</p>

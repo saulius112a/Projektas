@@ -1,0 +1,18 @@
+﻿@model List<Eshop.Data.Entities.Category>
+@{
+    ViewBag.Title = "Categories";
+}
+<h1>Kategorijos</h1>
+<div>
+    @foreach (Eshop.Data.Entities.Category cat in Model)
+    {
+        if (cat.SubCategories.Count > 0 || cat.SubCategories != null)
+        {
+            <h4>@cat.Name</h4>
+            foreach (Eshop.Data.Entities.Category subCat in cat.SubCategories)
+            {
+                <div> @Html.ActionLink(subCat.Name, "ProductList", new { categoryId = subCat.Id })</div>
+            }
+        }
+    }
+</div>
