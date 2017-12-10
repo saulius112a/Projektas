@@ -33,5 +33,6 @@ namespace Eshop.BusinessLogic
         Category GetCategory(int id);
         List<Account> GetAccountList();
         void DeleteAccount(int accountId);
+        void ChangeAccountRole(int accountId, Account.AccRole newRole);
     }
 }

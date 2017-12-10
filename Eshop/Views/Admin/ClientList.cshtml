@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Eshop.Data.Entities.Account>
 
 @{
-    ViewBag.Title = "EmployeeList";
+    ViewBag.Title = "ClientList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Darbuotojų sąrašas</h2>
+<h2>Klientų sąrašas</h2>
 
 @if (TempData["ShowSuccessMessage"] != null)
 {
@@ -14,9 +14,6 @@
     </div>
 }
 
-<p>
-    @Html.ActionLink("Pridėti naują darbuotoją", "AddNewEmployee")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -48,9 +45,9 @@
                new { id = item.Id, role = item.Role },
                new { onclick = "return confirm('Ar tikrai norite ištrinti " + item.AccountInfo.Name + " " + item.AccountInfo.LastName + "?');" })
             |
-            @Html.ActionLink("Panaikinti darbuotojo rolę", "ChangeRole",
-               new { id = item.Id, newRole = Eshop.Data.Entities.Account.AccRole.client },
-               new { onclick = "return confirm('Ar tikrai norite panaikinti darbuotojo rolę " + item.AccountInfo.Name + " " + item.AccountInfo.LastName + "?');" })
+            @Html.ActionLink("Suteikti darbuotojo rolę", "ChangeRole",
+               new { id = item.Id, newRole = Eshop.Data.Entities.Account.AccRole.employee },
+               new { onclick = "return confirm('Ar tikrai norite suteikti darbuotojo rolę " + item.AccountInfo.Name + " " + item.AccountInfo.LastName + "?');" })
         </td>
     </tr>
 }

@@ -459,5 +459,12 @@ namespace Eshop.BusinessLogic
             db.Accounts.Remove(db.Accounts.Where(x => x.Id == accountId).FirstOrDefault());
             db.SaveChanges();
         }
+
+        public void ChangeAccountRole(int accountId, Account.AccRole newRole)
+        {
+            var account = db.Accounts.Where(x => x.Id == accountId).FirstOrDefault();
+            account.Role = newRole;
+            db.SaveChanges();
+        }
     }
 }

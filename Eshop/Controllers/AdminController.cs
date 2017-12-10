@@ -23,15 +23,46 @@ namespace Eshop.Controllers
 
         public ActionResult EmployeeList()
         {
-            var empoyeeList = _adminService.GetClientAccountList();
+            var empoyeeList = _adminService.GetEmployeeAccountList();
             return View(empoyeeList);
         }
 
-        public ActionResult DeleteEmployee(int id)
+        public ActionResult ClientList()
+        {
+            var clientList = _adminService.GetClientAccountList();
+            return View(clientList);
+        }
+
+        public ActionResult DeleteEmployee(int id, bool isClient)
         {
             _repository.DeleteAccount(id);
-            TempData["ShowEmployeeDeleted"] = true;
-            return RedirectToAction("EmployeeList");
+            if (isClient)
+            {
+                TempData["ShowSuccessMessage"] = "Klientas sėkmingai ištrintas!";
+                return RedirectToAction("ClientList");
+            }
+            else
+            {
+                TempData["ShowSuccessMessage"] = "Darbuotojas sėkmingai ištrintas!";
+                return RedirectToAction("EmployeeList");
+            }
+
         }
+
+        public ActionResult ChangeRole(int id, Account.AccRole newRole)
+        {
+            _repository.ChangeAccountRole(id, newRole);
+            if (newRole == Account.AccRole.client)
+            {
+                TempData["ShowSuccessMessage"] = "Darbuotojui sėkmingai panaikinta darbuotojo rolė!";
+                return RedirectToAction("EmployeeList");
+            }
+            else
+            {
+                TempData["ShowSuccessMessage"] = "Klientui sėkmingai suteikta darbuotojo rolė!";
+                return RedirectToAction("ClientList");
+            }
+        }
+        
     }
 }
