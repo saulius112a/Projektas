@@ -6,7 +6,7 @@
     ViewBag.Title = "Manufacturers";
 }
 
-<h2>Products</h2>
+<h2>Produktai</h2>
 
 <p>
     @Html.ActionLink("Create New", "SelectCategory") | @Html.ActionLink("Upload Products", "UploadProducts")
@@ -22,16 +22,16 @@
 <table class="table">
     <tr>
         <th>
-            Name
+            Pavadinimas
         </th>
         <th>
-            Product Code
+            Produkto Kodas
         </th>
         <th>
-            Color
+            Spalva
         </th>
         <th>
-            Price
+            Kaina
         </th>
         <th></th>
     </tr>
@@ -53,8 +53,9 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.ActionLink("Redaguoti", "EditProduct", new { id = item.Id })
-                @Html.ActionLink("Perziureti", "Details", new { id = item.Id })
+                @Html.ActionLink("Redaguoti", "EditProduct", new { id = item.Id }) 
+                @Html.ActionLink("Perziureti", "Details", new { id = item.Id }) 
+                @Html.ActionLink("Ištrinti", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

@@ -751,5 +751,42 @@ namespace Eshop.BusinessLogic
             }
             return list;
         }
+
+        public void DeleteManufacturer(int id)
+        {
+            Manufacturer manu =db.Manufacturers.Where(x => x.Id == id).FirstOrDefault();
+            db.Manufacturers.Remove(manu);
+            db.SaveChangesAsync();
+        }
+        public void DeleteCategory(int id)
+        {
+            Category manu = db.Categories.Where(x => x.Id == id).FirstOrDefault();
+            db.Categories.Remove(manu);
+            db.SaveChangesAsync();
+        }
+        public void DeleteProduct(int id)
+        {
+            Product manu = db.Products.Where(x => x.Id == id).FirstOrDefault();
+            IList<ProductAttribute> att = manu.Attributes.ToList();
+            db.Configuration.AutoDetectChangesEnabled = false;
+            for (int i = 0; i < att.Count; i++)
+            {
+                var trait = att[i].TraitValue;
+                var mesur = att[i].Measurement;
+                if (trait != null)
+                {
+                    db.TraitValues.Remove(trait);
+                }
+                if (mesur != null)
+                {
+                    db.Measurements.Remove(mesur);
+                }     
+            }
+            db.ProductAttributes.RemoveRange(att);
+            db.Products.Remove(manu);
+            db.ChangeTracker.DetectChanges();
+            db.SaveChangesAsync();
+        }
     }
+
 }

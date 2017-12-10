@@ -108,6 +108,23 @@ namespace Eshop.Controllers
             }
             return View((ManufacturerModel)man);
         }
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                Repository.DeleteManufacturer((int)id);
+            }
+            catch (RetryLimitExceededException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
+            return RedirectToAction("Index");
+        }
         public ActionResult Upload()
         {
             return View();
@@ -155,27 +172,6 @@ namespace Eshop.Controllers
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        // GET: Manufacturer/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Manufacturer/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
 
                 return RedirectToAction("Index");
             }

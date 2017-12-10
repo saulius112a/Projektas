@@ -369,26 +369,22 @@ namespace Eshop.Controllers
             }
         }
 
-        // GET: Product/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
-        }
-
-        // POST: Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                Repository.DeleteProduct((int)id);
             }
-            catch
+            catch (RetryLimitExceededException/* dex */)
             {
-                return View();
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
             }
+            return RedirectToAction("Product");
         }
     }
 }

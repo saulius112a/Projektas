@@ -46,5 +46,8 @@ namespace Eshop.BusinessLogic
         List<TraitList> Temp(List<Data.Entities.Attribute> attributes);
         List<Product> GetProducts(int categoryId);
         List<Product> GetProducts(FilterModel model);
+        void DeleteManufacturer(int id);
+        void DeleteCategory(int id);
+        void DeleteProduct(int id);
     }
 }

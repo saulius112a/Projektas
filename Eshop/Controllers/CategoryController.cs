@@ -169,7 +169,7 @@ namespace Eshop.Controllers
             {
                 searchString = currentFilter;
             }
-            var list = Repository.GetCategories(searchString,false);
+            var list = Repository.GetCategories(searchString,true,false);
             ViewBag.CurrentFilter = searchString;
             int pageSize = 10;
             int pageNumber = (page ?? 1);
@@ -238,26 +238,22 @@ namespace Eshop.Controllers
             }
         }
 
-        // GET: Category/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
-        }
-
-        // POST: Category/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                Repository.DeleteCategory((int)id);
             }
-            catch
+            catch (RetryLimitExceededException/* dex */)
             {
-                return View();
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
             }
+            return RedirectToAction("CategoryList");
         }
     }
 }

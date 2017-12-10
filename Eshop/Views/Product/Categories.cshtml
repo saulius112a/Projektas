@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Categories";
 }
-<h1>Categories</h1>
+<h1>Kategorijos</h1>
 <div>
     @foreach (Eshop.Data.Entities.Category cat in Model)
     {
@@ -13,7 +13,6 @@
             {
                 <div> @Html.ActionLink(subCat.Name, "ProductList", new { categoryId = subCat.Id })</div>
             }
-            
         }
     }
 </div>
