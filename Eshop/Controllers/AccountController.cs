@@ -32,26 +32,24 @@ namespace Eshop.Controllers
             return View(aim);
         }
 
-        [HttpGet]
-        public ActionResult Edit()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult Edit(EditViewModel e)
+        public ActionResult Profile(EditViewModel e)
         {
             int id = AccountService.GetAccountByEmail(User.Identity.Name).Id;
             string editRsp = AccountService.UpdateAccountInfo(id, (AccountInfoModel)e);
             if (String.IsNullOrWhiteSpace(editRsp))
             {
+                TempData["ShowSuccessMessage"] = "Profilis atnaujintas!";
                 return RedirectToAction("Profile");
-            } else
+            }
+            else
             {
-                ViewBag.Error = editRsp;
+                TempData["ShowErrorMessage"] = editRsp;
+                //ViewBag.Error = editRsp;
                 return View();
             }
         }
+        
 
         [HttpGet]
         public ActionResult LogIn()
@@ -65,6 +63,7 @@ namespace Eshop.Controllers
             var logRsp = IsValid(l.Email, l.Password);
             if(String.IsNullOrWhiteSpace(logRsp))
             {
+                TempData["ShowSuccessMessage"] = "Sėkmingai prisijungta!";
                 Session["role"] = Repository.GetAccountByEmail(l.Email).Role;
 
                 FormsAuthentication.SetAuthCookie(l.Email, false);
@@ -72,12 +71,12 @@ namespace Eshop.Controllers
                 return RedirectToAction("Index", "Home");
             } else if(logRsp == "1")
             {
-                ViewBag.Error = "Blogai įvesti duomenys";
+                TempData["ShowErrorMessage"] = "Blogai įvesti duomenys.";
                 AccountService.LogLogin(false, l.Email, Request.UserHostAddress);
                 return View();
             } else if(logRsp == "2")
             {
-                ViewBag.Error = "Blogai įvesti duomenys";
+                TempData["ShowErrorMessage"] = "Blogai įvesti duomenys.";
                 return View();
             }
             return View();
@@ -99,10 +98,12 @@ namespace Eshop.Controllers
             string regRsp = AccountService.Register(accModel, acciModel);
             if(String.IsNullOrWhiteSpace(regRsp))
             {
+                TempData["ShowSuccessMessage"] = "Vartotojas sėkmingai sukurtas!";
                 return RedirectToAction("LogIn", "Account");
-            } else if(regRsp.Equals("1"))
+            }
+            else if(regRsp.Equals("1"))
             {
-                ViewBag.Error = "Toks elektroninio pašto adresas jau egzistuoja";
+                TempData["ShowErrorMessage"] = "Toks el. pašto adresas jau egzistuoja.";
                 return View();
             }
             return RedirectToAction("Index", "Home");

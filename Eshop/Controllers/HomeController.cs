@@ -27,8 +27,6 @@ namespace Eshop.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-            
             return View();
         }
         public int InsertCategory(CategoryViewModel category)
@@ -36,13 +34,6 @@ namespace Eshop.Controllers
             CategoryModel cat = (CategoryModel)category;
             CategoryService.InsertCategory((CategoryModel)cat);
             return 1;
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }

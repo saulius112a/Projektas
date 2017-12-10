@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "EmployeeMain";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Darbuotojo panelė</h2>
+
+<ul>
+    <li>@Html.ActionLink("Darbuotojų sąrašas", "EmployeeList", "Admin")</li>
+    <li>@Html.ActionLink("Klientų sąrašas", "ClientList", "Admin")</li>
+</ul>

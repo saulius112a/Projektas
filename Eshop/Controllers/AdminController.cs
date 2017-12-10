@@ -21,6 +21,11 @@ namespace Eshop.Controllers
             return View();
         }
 
+        public ActionResult EmployeeMain()
+        {
+            return View();
+        }
+
         public ActionResult EmployeeList()
         {
             var empoyeeList = _adminService.GetEmployeeAccountList();
