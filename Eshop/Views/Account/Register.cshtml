@@ -1,21 +1,67 @@
-﻿
+﻿@model Eshop.Data.Entities.Account
 @{
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Register</h2>
+<h2>Registracija</h2>
+
+@if (TempData["ShowSuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @Html.Encode(TempData["ShowSuccessMessage"])
+    </div>
+}
+
+@if (TempData["ShowErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.Encode(TempData["ShowErrorMessage"])
+    </div>
+}
+
 <form method="post">
-    <p color="red">@ViewBag.Error</p>
-    <input type="email" name="Email" placeholder="E-mail" required/><br />
-    <input type="password" name="Password" placeholder="Password" required/><br />
-    <input type="password" name="repeatPassword" placeholder="Re-peat Password" required/><br />
-    <h3>Papildoma informacija</h3>
-    <input type="text" name="Name" placeholder="Vardas" /><br />
-    <input type="text" name="LastName" placeholder="Pavardė" /><br />
-    <input type="text" name="Address" placeholder="Adresas" /><br />
-    <input type="text" name="Phone" placeholder="Telefono numeris" /><br />
-    <input type="text" name="ZipCode" placeholder="Pašto kodas" /><br />
-    <input type="submit" />
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">@Html.DisplayNameFor(model => model.Email)</label>
+        <input class="col-4 form-control" type="email" name="Email" required />
+    </div>
+
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">@Html.DisplayNameFor(model => model.Password)</label>
+        <input class="col-4 form-control" type="password" name="Password" required />
+    </div>
+
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">Pakartokite slaptažodį</label>
+        <input class="col-4 form-control" type="password" name="repeatPassword" required />
+    </div>
+
+    <h5>Papildoma informacija</h5>
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">@Html.DisplayNameFor(model => model.AccountInfo.Name)</label>
+        <input class="col-4 form-control" type="text" name="Name" required/>
+    </div>
+
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">@Html.DisplayNameFor(model => model.AccountInfo.LastName)</label>
+        <input class="col-4 form-control" type="text" name="LastName" required />
+    </div>
+
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">@Html.DisplayNameFor(model => model.AccountInfo.Address)</label>
+        <input class="col-4 form-control" type="text" name="Address" />
+    </div>
+
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">@Html.DisplayNameFor(model => model.AccountInfo.Phone)</label>
+        <input class="col-4 form-control" type="text" name="Phone" />
+    </div>
+
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">@Html.DisplayNameFor(model => model.AccountInfo.ZipCode)</label>
+        <input class="col-4 form-control" type="text" name="ZipCode" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registruotis</button>
 </form>
 

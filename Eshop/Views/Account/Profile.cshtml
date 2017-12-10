@@ -1,19 +1,68 @@
 ﻿@model Eshop.Data.Models.AccountInfoModel
+@using Eshop.Data.Entities
 
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Profile</h2>
+<h2>Profilis</h2>
+
+@if (TempData["ShowSuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @Html.Encode(TempData["ShowSuccessMessage"])
+    </div>
+}
+
+@if (TempData["ShowErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.Encode(TempData["ShowErrorMessage"])
+    </div>
+}
+<form method="post">
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">El. paštas</label>
+        <input class="col-4 form-control" type="text" name="Name" value="@User.Identity.Name" disabled />
+    </div>
+
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">Vardas</label>
+        <input class="col-4 form-control" type="text" name="Name" value="@Html.DisplayFor(model => model.Name)" required />
+    </div>
+
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">Pavardė</label>
+        <input class="col-4 form-control" type="text" name="LastName" value="@Html.DisplayFor(model => model.LastName)" required />
+    </div>
+
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">Adresas</label>
+        <input class="col-4 form-control" type="text" name="Address" value="@Html.DisplayFor(model => model.Address)" />
+    </div>
+
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">Tel. numeris</label>
+        <input class="col-4 form-control" type="text" name="Phone" value="@Html.DisplayFor(model => model.Phone)" />
+    </div>
+
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">Pašto kodas</label>
+        <input class="col-4 form-control" type="text" name="ZipCode" value="@Html.DisplayFor(model => model.ZipCode)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Atnaujinti</button>
+</form>
+
 <div>
-    <table>
+    @*<table class="table">
         <tr>
-            <td>Elektroninis paštas</td>
+            <td>El. paštas</td>
             <td>@Html.Encode(User.Identity.Name)</td>
         </tr>
         <tr>
-            <td>Vardas</td>
+            <td>@Html.DisplayNameFor(name => Model.Name)</td>
             <td>@Html.DisplayFor(name => Model.Name)</td>
         </tr>
         <tr>
@@ -32,7 +81,7 @@
             <td>Pašto kodas</td>
             <td>@Html.DisplayFor(zipcode => Model.ZipCode)</td>
         </tr>
-    </table>
+    </table>*@
     <strong>@Html.ActionLink("Redaguoti", "Edit", "Account")</strong>
-</div>
+@*</div>*@
 
