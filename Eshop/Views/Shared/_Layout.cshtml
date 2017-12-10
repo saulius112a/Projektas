@@ -20,29 +20,54 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("IS projektas - El. parduotuvė", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+
             <div class="navbar-collapse collapse">
+
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Pagrindinis", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Apie", "About", "Home")</li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    @* Prisijungusio meniu *@
+                    @if (Request.IsAuthenticated)
+                    {
+                        <span class="navbar-text">Krepšelis</span>  @*TODO: turės būt linkas*@ 
+
+                        <li class="dropdown">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                @using Eshop.Data.Entities
+
+                                @if (Session["role"] != null && (Account.AccRole)Session["role"] == Account.AccRole.admin)
+                                {
+                                    <li>@Html.ActionLink("Administravimo panelė", "AdminMain", "Admin")</li>
+                                }
+
+                                @if (Session["role"] != null && (Account.AccRole)Session["role"] == Account.AccRole.employee)
+                                {
+                                    <li>@Html.ActionLink("Darbuotojo panelė", "EmployeeMain", "Admin")</li>
+                                }
+
+                                <span class="navbar-text">Krepšelis</span>  @*TODO: turės būt linkas*@
+                                <li>@Html.ActionLink("Profilis", "Profile", "Account")</li>
+                                <li>@Html.ActionLink("Atsijungti", "LogOut", "Account")</li>
+                            </ul>
+                        </li>
+
+                    }
+                    @* Neprisijungusio meniu *@
+                    else
+                    {
+                        <li>@Html.ActionLink("Registruotis", "Register", "Account")</li>
+                        <li>@Html.ActionLink("Prisijungti", "LogIn", "Account")</li>
+                    }
                 </ul>
             </div>
             <div style="width:auto; background-color:aqua">
-                @if (Request.IsAuthenticated)
-                {
-                    <strong>@Html.ActionLink(@Html.Encode(User.Identity.Name), "Profile", "Account")</strong>
-                    @Html.ActionLink("Log Out", "LogOut", "Account")
-
-                    @Html.Encode(Session["role"])
-                }
-                else
-                {
-                    @Html.ActionLink("Register", "Register", "Account")
-                    <span> | </span>
-                    @Html.ActionLink("Log In", "LogIn", "Account")
-                }
             </div>
         </div>
     </div>
@@ -50,7 +75,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Eshop</p>
+            <p>&copy; @DateTime.Now.Year - IS projektas</p>
         </footer>
     </div>
 
