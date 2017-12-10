@@ -13,7 +13,7 @@ namespace Eshop.Data.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public double Weight { get; set; }
-        public string ProductCoode { get; set; }
+        public string ProductCode { get; set; }
         public double Price { get; set; }
         public string Color { get; set; }
         public DateTime CreationDate { get; set; }
@@ -22,7 +22,7 @@ namespace Eshop.Data.Models
         public virtual Manufacturer Manufacturer { get; set; }
         public virtual IList<ProductAttribute> Attributes { get; set; }
         public virtual ICollection<ProductPic> Pics { get; set; }
-        public virtual Discount Discount { get; set; }
+        //public virtual Discount Discount { get; set; }
         public int ManufacturerId { get; set; }
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
@@ -34,12 +34,16 @@ namespace Eshop.Data.Models
                 Name = p.Name,
                 Description = p.Description,
                 Price = p.Price,
+                ProductCode=p.ProductCode,
                 Color = p.Color,
                 CreationDate = p.CreationDate,
                 UpdateDate = p.UpdateDate,
                 IsDiscounted = p.IsDiscounted,
                 CategoryId=p.CategoryId,
-                Category=p.Category
+                Category=p.Category,
+                ManufacturerId=p.ManufacturerId,
+                Manufacturer=p.Manufacturer,
+                Attributes=p.Attributes
             };
         }
         public static explicit operator Product(ProductModel p)
@@ -51,11 +55,15 @@ namespace Eshop.Data.Models
                 Description = p.Description,
                 Price = p.Price,
                 Color = p.Color,
+                ProductCode = p.ProductCode,
                 CreationDate = p.CreationDate,
                 UpdateDate = p.UpdateDate,
                 IsDiscounted = p.IsDiscounted,
                 CategoryId = p.CategoryId,
-                Category = p.Category
+                Category = p.Category,
+                ManufacturerId = p.ManufacturerId,
+                Manufacturer = p.Manufacturer,
+                Attributes = p.Attributes
             };
         }
     }

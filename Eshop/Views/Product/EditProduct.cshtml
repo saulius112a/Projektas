@@ -1,16 +1,15 @@
 ﻿@model Eshop.Data.Models.ProductModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
-<h2>Create</h2>
+<h2>Edit</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <fieldset>
-        <h4>Category: @Html.DisplayFor(model=> model.Category.Name)</h4>
+        <h4>Category: @Html.DisplayFor(model => model.Category.Name)</h4>
         <legend>Product Details</legend>
         <hr />
-        @Html.HiddenFor(model=>model.CategoryId)
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -34,10 +33,10 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.ProductCoode, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ProductCode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProductCoode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProductCoode, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ProductCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductCode, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -62,57 +61,54 @@
          new
          {
              @class = "selectpicker",
-             @Value = @Model.ManufacturerId,
+             @Value = @Model.Manufacturer,
              //onchange = "this.form.submit();",
              data_show_subtext = "true",
              data_live_search = "true"
          })
             </div>
         </div>
-</fieldset>
+    </fieldset>
     <fieldset>
-            <legend>Attributes</legend>
-            <div class="form-group">
-                @if (Model.Category.Attributes != null || Model.Category.Attributes.Count > 0)
+        <legend>Attributes</legend>
+        <div class="form-group">
+            @if (Model.Category.Attributes != null || Model.Category.Attributes.Count > 0)
+            {
+                for (int i = 0; i < Model.Category.Attributes.Count; i++)
                 {
-                    for (int i = 0; i < Model.Category.Attributes.Count; i++)
+
+                    if (Model.Category.Attributes[i].IsTrait)
                     {
-                        
-                        if (Model.Category.Attributes[i].IsTrait)
-                        {
+                        <div class="form-group">
+                            @Html.DisplayFor(model => Model.Category.Attributes[i].Name)
+                            @Html.EditorFor(model => model.Attributes[i].TraitValue.Value, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Attributes[i].TraitValue.Value, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            @Html.DisplayFor(model => Model.Category.Attributes[i].Name)
                             <div class="form-group">
-                                @Html.DisplayFor(model => Model.Category.Attributes[i].Name)
-                                @Html.EditorFor(model => model.Attributes[i].TraitValue.Value, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Attributes[i].TraitValue.Value, "", new { @class = "text-danger" })
+
+                                @Html.EditorFor(model => model.Attributes[i].Measurement.Value)
+                                @Html.ValidationMessageFor(model => model.Attributes[i].Measurement.Value, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.Attributes[i].Measurement.Unit)
+                                @Html.EditorFor(model => model.Attributes[i].Measurement.Unit)
+                                @Html.ValidationMessageFor(model => model.Attributes[i].Measurement.Unit, "", new { @class = "text-danger" })
+
                             </div>
-                        }
-                        else
-                        {
-                            <div class="form-group">
-                                @Html.DisplayFor(model => Model.Category.Attributes[i].Name)
-                                <div class="form-group">
-                                    
-                                    @Html.EditorFor(model => model.Attributes[i].Measurement.Value)
-                                    @Html.ValidationMessageFor(model => model.Attributes[i].Measurement.Value, "", new { @class = "text-danger" })
-                                    @Html.LabelFor(model => model.Attributes[i].Measurement.Unit)
-                                    @Html.EditorFor(model => model.Attributes[i].Measurement.Unit)
-                                    @Html.ValidationMessageFor(model => model.Attributes[i].Measurement.Unit, "", new { @class = "text-danger" })
-                                    
-                                </div>
-                            </div>
-                        }
+                        </div>
                     }
                 }
-             </div>
+            }
+        </div>
     </fieldset>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
-    <script type="text/javascript">
-        
-    </script>
 }
 <div>
     @Html.ActionLink("Back to List", "Index")

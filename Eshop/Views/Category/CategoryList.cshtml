@@ -1,0 +1,51 @@
+﻿@model PagedList.IPagedList<Eshop.Data.Entities.Category>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Categories";
+}
+<h2>Categories</h2>
+<p>
+    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("Upload Categories", "UploadCategories")
+</p>
+@using (Html.BeginForm("CategoryList", "Product", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            Category Name
+        </th>
+        <th>
+            Parent Category
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parent.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Redaguoti", "EditCategory", new { id = item.Id })  @Html.ActionLink("Peržiūrėti", "Details", new { id = item.Id })  
+                @if (item.ParentId != null)
+                {
+                @Html.ActionLink("Prideti atributus", "AddAttributes", new { id = item.Id }) 
+                }
+                @Html.ActionLink("Ištrinti", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("CategoryList",
+    new { page, currentFilter = ViewBag.CurrentFilter }))
