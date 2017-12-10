@@ -31,7 +31,7 @@ namespace Eshop.BusinessLogic
         void InsertProductsFromJsonFile(StreamReader reader);
         List<Manufacturer> GetManufacturers(string searchString=null);
         Category GetCategory(int id);
-        List<Category> GetCategories(string searchString);
+        List<Category> GetCategories(string searchString,bool getParent=true,bool onlyParents=false);
         void EditCategory(Category cat);
         Manufacturer GetManufacturer(int id);
         void EditManufacturer(Manufacturer manufacturer);
@@ -39,5 +39,12 @@ namespace Eshop.BusinessLogic
         Product GetProduct(int id);
         void EditProduct(Product product);
         void InsertProduct(Product product);
+        List<Data.Entities.Attribute> GetAttributes(int categoryId);
+        List<ProductAttribute> GetProducAttributes(List<Data.Entities.Attribute> attribute);
+        List<MinMax> GetValues(List<Data.Entities.Attribute> attributes);
+        List<List<TraitModel>> GetTraitValues(List<Data.Entities.Attribute> attributes);
+        List<TraitList> Temp(List<Data.Entities.Attribute> attributes);
+        List<Product> GetProducts(int categoryId);
+        List<Product> GetProducts(FilterModel model);
     }
 }

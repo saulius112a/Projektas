@@ -95,6 +95,19 @@ namespace Eshop.Controllers
             }
             return View(manufacturerModel);
         }
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Manufacturer man = Repository.GetManufacturer((int)id);
+            if (man == null)
+            {
+                return HttpNotFound();
+            }
+            return View((ManufacturerModel)man);
+        }
         public ActionResult Upload()
         {
             return View();
@@ -128,10 +141,6 @@ namespace Eshop.Controllers
             return View();
         }
         // GET: Manufacturer/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
         // GET: Manufacturer/Create
         public ActionResult Create()
@@ -154,29 +163,6 @@ namespace Eshop.Controllers
                 return View();
             }
         }
-
-        // GET: Manufacturer/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Manufacturer/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: Manufacturer/Delete/5
         public ActionResult Delete(int id)
         {

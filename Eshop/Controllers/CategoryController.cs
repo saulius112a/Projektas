@@ -111,6 +111,19 @@ namespace Eshop.Controllers
         {
             return PartialView("AttributeEntryEditor");
         }
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category cat = Repository.GetCategory((int)id);
+            if (cat == null)
+            {
+                return HttpNotFound();
+            }
+            return View((CategoryModel)cat);
+        }
         public ActionResult EditCategory(int? id)
         {
             if (id == null)
@@ -156,7 +169,7 @@ namespace Eshop.Controllers
             {
                 searchString = currentFilter;
             }
-            var list = Repository.GetCategories(searchString);
+            var list = Repository.GetCategories(searchString,false);
             ViewBag.CurrentFilter = searchString;
             int pageSize = 10;
             int pageNumber = (page ?? 1);
@@ -178,10 +191,6 @@ namespace Eshop.Controllers
             return View();
         }
         // GET: Category/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
         // GET: Category/Create
         public ActionResult Create()
@@ -212,10 +221,6 @@ namespace Eshop.Controllers
         }
 
         // GET: Category/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
         // POST: Category/Edit/5
         [HttpPost]

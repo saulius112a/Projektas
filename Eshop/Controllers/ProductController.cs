@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using System.Data.Entity.Infrastructure;
+using Eshop.Models;
 
 namespace Eshop.Controllers
 {
@@ -28,6 +29,47 @@ namespace Eshop.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        public ActionResult ProductList(FilterViewModel filter)
+        {
+            if (filter.CategoryId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<Data.Entities.Attribute> att = Repository.GetAttributes((int)filter.CategoryId);
+            if (att == null|| att.Count==0)
+            {
+                return HttpNotFound();
+            }
+            
+            filter.Attributes = att;
+            filter.FilterAttributes = Repository.Temp(att);
+            List<Product> list = Repository.GetProducts((int)filter.CategoryId);
+            filter.Products = list;
+            return View(filter);
+        }
+        [HttpPost, ActionName("ProductList")]
+        public ActionResult ProductListPost(FilterViewModel filter)
+        {
+            if (filter.CategoryId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<Data.Entities.Attribute> att = Repository.GetAttributes((int)filter.CategoryId);
+            if (att == null || att.Count == 0)
+            {
+                return HttpNotFound();
+            }
+            filter.Attributes = att;
+            List<Product> list = Repository.GetProducts((FilterModel)filter);
+            filter.Products = list;
+            filter.FilterAttributes = Repository.Temp(att);
+            return View(filter);
+        }
+        public ActionResult Categories()
+        {
+            List<Category> viewModel = Repository.GetCategories(null,false,true);
+            return View(viewModel);
         }
         public ActionResult Product(string currentFilter, string searchString, int? page)
         {
@@ -178,9 +220,18 @@ namespace Eshop.Controllers
         }
         
         // GET: Product/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = Repository.GetProduct((int)id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View((ProductModel)product);
         }
         public ActionResult AttributeEntryRow()
         {

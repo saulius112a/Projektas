@@ -1,0 +1,29 @@
+﻿@model Eshop.Data.Models.ManufacturerModel
+@{
+    ViewBag.Title = "Peržiūra";
+}
+<h2>Peržiūrėti</h2>
+
+    <div class="form-horizontal">
+        <h4>Gamintojas</h4>
+        <hr />
+        <div class="form-group">
+            <b>Pavadinimas</b>
+            <div >
+                @Html.DisplayFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <b>Aprašymas</b>
+            <div >
+                @Html.DisplayFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <b>Gamintojo svetainė</b>
+            <div >
+                <a href=@Model.WebLink>@Model.WebLink</a>
+            </div>
+        </div>
+    </div>
+
