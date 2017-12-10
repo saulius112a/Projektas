@@ -31,5 +31,8 @@ namespace Eshop.BusinessLogic
         void InsertProductsFromJsonFile(StreamReader reader);
         List<Manufacturer> GetManufacturers();
         Category GetCategory(int id);
+        List<Account> GetAccountList();
+        void DeleteAccount(int accountId);
+        void ChangeAccountRole(int accountId, Account.AccRole newRole);
     }
 }
