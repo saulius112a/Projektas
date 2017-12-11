@@ -34,7 +34,7 @@ namespace Eshop.Controllers
 
             // dont let not employees to access manufacturer control
             if (controllerName == "Manufacturer"
-                && !IsEmployee())
+                && !IsAtleastEmployee())
                 filterContext.Result = Redirect("/Home/Forbidden");
 
             base.OnActionExecuting(filterContext);
@@ -45,14 +45,14 @@ namespace Eshop.Controllers
             return Request.Cookies["role"] != null && Request.Cookies["role"].Value == "admin";
         }
 
-        private bool IsEmployee()
+        private bool IsAtleastEmployee()
         {
             return (Request.Cookies["role"] != null && Request.Cookies["role"].Value == "employee") || IsAdmin();
         }
 
-        private bool IsClient()
+        private bool IsAtleastClient()
         {
-            return (Request.Cookies["role"] != null && Request.Cookies["role"].Value == "client") || IsEmployee();
+            return (Request.Cookies["role"] != null && Request.Cookies["role"].Value == "client") || IsAtleastEmployee();
         }
 
         private bool IsLoggedOut()
@@ -62,7 +62,7 @@ namespace Eshop.Controllers
 
         private bool IsLoggedIn()
         {
-            return IsAdmin() || IsEmployee() || IsClient();
+            return IsAtleastClient();
         }
     }
 }
