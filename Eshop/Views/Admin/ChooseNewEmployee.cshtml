@@ -1,0 +1,23 @@
+﻿@model Eshop.Models.NewEmployeeSelectViewModel
+@{
+    ViewBag.Title = "ChooseNewEmployee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Naujas darbuotojas</h2>
+
+@if (TempData["ShowSuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @Html.Encode(TempData["ShowSuccessMessage"])
+    </div>
+}
+<form method="post">
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label">Pasirinkite žmogų</label>
+
+        @Html.DropDownListFor(x => x.State, Model.Options, null, new { @class = "col-4 form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Pridėti</button>
+</form>

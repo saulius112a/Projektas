@@ -1,6 +1,8 @@
 ﻿using Eshop.BusinessLogic;
 using Eshop.BusinessLogic.Interfaces;
 using Eshop.Data.Entities;
+using Eshop.Models;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Eshop.Controllers
@@ -68,6 +70,33 @@ namespace Eshop.Controllers
                 return RedirectToAction("ClientList");
             }
         }
-        
+        [HttpGet]
+        public ActionResult ChooseNewEmployee()
+        {
+            var model = new NewEmployeeSelectViewModel();
+
+            var listItems = new List<SelectListItem>();
+            foreach (var item in _adminService.GetClientAccountList())
+            {
+                listItems.Add(new SelectListItem() {
+                    Text = string.Format("{0} {1}, {2}", item.AccountInfo.Name, item.AccountInfo.LastName, item.Email),
+                    Value = item.AccountInfo.AccountId.ToString()
+                });
+            }
+
+            model.Options = listItems;
+            return View(model);
+
+        }
+
+        [HttpPost]
+        public ActionResult ChooseNewEmployee(NewEmployeeSelectViewModel vm)
+        {
+            _repository.ChangeAccountRole(int.Parse(vm.State), Account.AccRole.employee);
+            TempData["ShowSuccessMessage"] = "Darbuotojas pridėtas!";
+            return RedirectToAction("EmployeeList");
+        }
+
+
     }
 }
