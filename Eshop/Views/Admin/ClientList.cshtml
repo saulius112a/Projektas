@@ -40,14 +40,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.CreationDate)
         </td>
-        <td>
-            @Html.ActionLink("Trinti", "DeleteAccount",
-               new { id = item.Id, role = item.Role },
-               new { onclick = "return confirm('Ar tikrai norite ištrinti " + item.AccountInfo.Name + " " + item.AccountInfo.LastName + "?');" })
-            |
+        <td> 
             @Html.ActionLink("Suteikti darbuotojo rolę", "ChangeRole",
                new { id = item.Id, newRole = Eshop.Data.Entities.Account.AccRole.employee },
                new { onclick = "return confirm('Ar tikrai norite suteikti darbuotojo rolę " + item.AccountInfo.Name + " " + item.AccountInfo.LastName + "?');" })
+             | 
+            @Html.ActionLink("Trinti", "DeleteAccount",
+               new { id = item.Id, role = item.Role },
+               new { onclick = "return confirm('Ar tikrai norite ištrinti " + item.AccountInfo.Name + " " + item.AccountInfo.LastName + "?');" })
         </td>
     </tr>
 }

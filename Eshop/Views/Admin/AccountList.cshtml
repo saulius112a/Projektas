@@ -1,0 +1,117 @@
+﻿@model Eshop.Models.AccountListModel
+
+@{
+    ViewBag.Title = "AccountList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Eshop.Data.Entities.Account acc = null;
+}
+
+<h2>Klientai ir darbuotojai</h2>
+
+<form action="" method="post">
+    <div class="row form-row">
+        <div class="col-5">
+            <div class="form-group form-row">
+                <label class="col-3 col-form-label">@Html.DisplayNameFor(model => model.StartDate)</label>
+                @Html.EditorFor(x => Model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="form-group form-row">
+                <label class="col-3 col-form-label">@Html.DisplayNameFor(model => model.EndDate)</label>
+                @Html.EditorFor(x => Model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Filtruoti</button>
+        </div>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(x => acc.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => acc.AccountInfo.LastName), @Html.DisplayNameFor(x => acc.AccountInfo.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => acc.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => acc.AccountInfo.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => acc.AccountInfo.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => acc.AccountInfo.ZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => acc.Role)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => acc.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => acc.CreationDate)
+        </th>
+    </tr>
+
+@using Eshop.Data.Entities;
+@foreach (var item in Model.Accounts) {
+    <tr>
+        <th>
+            @Html.DisplayFor(modelItem => item.Id)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountInfo.LastName), @Html.DisplayFor(modelItem => item.AccountInfo.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountInfo.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountInfo.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountInfo.ZipCode)
+        </td>
+        <td>
+            @switch(item.Role)
+            {
+                case Account.AccRole.client:
+                    @Html.Encode("Klientas");
+                    break;
+                case Account.AccRole.employee:
+                    @Html.Encode("Darbuotojas");
+                    break;
+                case Account.AccRole.admin:
+                    @Html.Encode("Administratorius");
+                    break;
+            }
+        </td>
+        <td>
+            @switch (item.Status)
+            {
+                case Account.AccStatus.active:
+                    @Html.Encode("Aktyvus");
+                    break;
+                case Account.AccStatus.banned:
+                    @Html.Encode("Užblokuotas");
+                    break;
+                case Account.AccStatus.deleted:
+                    @Html.Encode("Ištrintas");
+                    break;
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreationDate)
+        </td>
+    </tr>
+}
+
+</table>

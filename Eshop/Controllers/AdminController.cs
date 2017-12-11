@@ -2,6 +2,7 @@
 using Eshop.BusinessLogic.Interfaces;
 using Eshop.Data.Entities;
 using Eshop.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -18,32 +19,52 @@ namespace Eshop.Controllers
             _repository = repository;
         }
 
+        [HttpGet]
         public ActionResult AdminMain()
         {
             return View();
         }
 
+        [HttpGet]
         public ActionResult EmployeeMain()
         {
             return View();
         }
 
+        [HttpGet]
         public ActionResult EmployeeList()
         {
             var empoyeeList = _adminService.GetEmployeeAccountList();
             return View(empoyeeList);
         }
 
+        [HttpGet]
         public ActionResult ClientList()
         {
             var clientList = _adminService.GetClientAccountList();
             return View(clientList);
         }
 
-        public ActionResult DeleteEmployee(int id, bool isClient)
+        [HttpGet]
+        public ActionResult AccountList()
+        {
+            var model = new AccountListModel();
+            model.Accounts = _adminService.GetAccountList(null, null);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AccountList(AccountListModel vm)
+        {
+            vm.Accounts = _adminService.GetAccountList(vm.StartDate, vm.EndDate);
+            return View(vm);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteAccount(int id, Account.AccRole role)
         {
             _repository.DeleteAccount(id);
-            if (isClient)
+            if (role == Account.AccRole.client)
             {
                 TempData["ShowSuccessMessage"] = "Klientas sėkmingai ištrintas!";
                 return RedirectToAction("ClientList");
@@ -56,10 +77,11 @@ namespace Eshop.Controllers
 
         }
 
-        public ActionResult ChangeRole(int id, Account.AccRole newRole)
+        [HttpGet]
+        public ActionResult ChangeRole(int id, Account.AccRole role)
         {
-            _repository.ChangeAccountRole(id, newRole);
-            if (newRole == Account.AccRole.client)
+            _repository.ChangeAccountRole(id, role);
+            if (role == Account.AccRole.client)
             {
                 TempData["ShowSuccessMessage"] = "Darbuotojui sėkmingai panaikinta darbuotojo rolė!";
                 return RedirectToAction("EmployeeList");
@@ -70,6 +92,7 @@ namespace Eshop.Controllers
                 return RedirectToAction("ClientList");
             }
         }
+
         [HttpGet]
         public ActionResult ChooseNewEmployee()
         {
@@ -86,7 +109,6 @@ namespace Eshop.Controllers
 
             model.Options = listItems;
             return View(model);
-
         }
 
         [HttpPost]
