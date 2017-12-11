@@ -64,8 +64,9 @@ namespace Eshop.Controllers
             if(String.IsNullOrWhiteSpace(logRsp))
             {
                 TempData["ShowSuccessMessage"] = "Sėkmingai prisijungta!";
-                Session["role"] = Repository.GetAccountByEmail(l.Email).Role;
-
+                var cookie = new HttpCookie("cookie");
+                cookie.Values.Add("role", Repository.GetAccountByEmail(l.Email).Role.ToString());
+                Response.Cookies.Add(cookie);
                 FormsAuthentication.SetAuthCookie(l.Email, false);
                 AccountService.LogLogin(true, l.Email, Request.UserHostAddress);
                 return RedirectToAction("Index", "Home");

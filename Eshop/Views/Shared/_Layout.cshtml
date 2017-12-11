@@ -31,17 +31,17 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown02">
 
                             @using Eshop.Data.Entities
-                            @if (Session["role"] != null && (Account.AccRole)Session["role"] == Account.AccRole.admin)
+                            @if (Request.Cookies["cookie"]["role"] == "admin")
                             {
                                 @Html.ActionLink("Administravimo panelė", "AdminMain", "Admin", null, new { @class = "dropdown-item" })
                             }
 
-                            @if (Session["role"] != null && (Account.AccRole)Session["role"] == Account.AccRole.employee)
+                            @if (Request.Cookies["cookie"]["role"] == "employee")
                             {
                                 @Html.ActionLink("Darbuotojo panelė", "EmployeeMain", "Admin", null, new { @class = "dropdown-item" })
                             }
 
-                            <span class="dropdown-item disabled">Mėgstamiausių sąrašas</span>  @*TODO: normalus linkas*@  
+                            <span class="dropdown-item disabled">Mėgstamiausių sąrašas</span>  @*TODO: normalus linkas*@
                             @Html.ActionLink("Profilis", "Profile", "Account", null, new { @class = "dropdown-item" })
                             @Html.ActionLink("Atsijungti", "LogOut", "Account", null, new { @class = "dropdown-item" })
                         </div>
