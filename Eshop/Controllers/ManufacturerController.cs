@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace Eshop.Controllers
 {
-    public class ManufacturerController : Controller
+    public class ManufacturerController : BaseController
     {
         private readonly ICategoryService CategoryService;
         private readonly IRepository Repository;

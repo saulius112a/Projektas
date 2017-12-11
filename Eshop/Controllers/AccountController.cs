@@ -14,7 +14,7 @@ using System.Web.Security;
 
 namespace Eshop.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly IAccountService AccountService;
         private readonly IRepository Repository;
@@ -64,8 +64,7 @@ namespace Eshop.Controllers
             if(String.IsNullOrWhiteSpace(logRsp))
             {
                 TempData["ShowSuccessMessage"] = "Sėkmingai prisijungta!";
-                var cookie = new HttpCookie("cookie");
-                cookie.Values.Add("role", Repository.GetAccountByEmail(l.Email).Role.ToString());
+                var cookie = new HttpCookie("role", Repository.GetAccountByEmail(l.Email).Role.ToString());
                 Response.Cookies.Add(cookie);
                 FormsAuthentication.SetAuthCookie(l.Email, false);
                 AccountService.LogLogin(true, l.Email, Request.UserHostAddress);
@@ -114,6 +113,8 @@ namespace Eshop.Controllers
         [HttpGet]
         public ActionResult LogOut()
         {
+            var cookie = new HttpCookie("role", null);
+            Response.Cookies.Add(cookie);
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }

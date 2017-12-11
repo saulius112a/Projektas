@@ -18,7 +18,6 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">@Html.ActionLink("Pagrindinis", "Index", "Home", null, new { @class = "nav-link" })</li>
                 <li class="nav-item">@Html.ActionLink("Apie", "About", "Home", null, new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("Darbuotojam", "Index", "Product", null, new { @class = "nav-link" })</li>
                 <li class="nav-item">@Html.ActionLink("Pirkejam", "Categories", "Product", null, new { @class = "nav-link" })</li>
             </ul>
             <ul class="navbar-nav navbar-right">
@@ -31,20 +30,21 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown02">
 
                             @using Eshop.Data.Entities
-                            @if (Request.Cookies["cookie"]["role"] == "admin")
+                            @if (Request.Cookies["role"] != null && Request.Cookies["role"].Value == "admin")
                             {
                                 @Html.ActionLink("Administravimo panelė", "AdminMain", "Admin", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Darbuotojo panelė", "Index", "Product", null, new { @class = "dropdown-item" })
                             }
 
-                            @if (Request.Cookies["cookie"]["role"] == "employee")
+                            @if (Request.Cookies["role"] != null && Request.Cookies["role"].Value == "employee")
                             {
-                                @Html.ActionLink("Darbuotojo panelė", "EmployeeMain", "Admin", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Darbuotojo panelė", "Index", "Product", null, new { @class = "dropdown-item" })
                             }
 
                             <span class="dropdown-item disabled">Mėgstamiausių sąrašas</span>  @*TODO: normalus linkas*@
                             @Html.ActionLink("Profilis", "Profile", "Account", null, new { @class = "dropdown-item" })
                             @Html.ActionLink("Atsijungti", "LogOut", "Account", null, new { @class = "dropdown-item" })
-                        </div>
+</div>
                     </li>
                 }
                 else

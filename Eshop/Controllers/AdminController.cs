@@ -8,10 +8,12 @@ using System.Web.Mvc;
 
 namespace Eshop.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         private readonly IAdminService _adminService;
         private readonly IRepository _repository;
+
+        private bool _isForbidden = true;
 
         public AdminController(IAdminService adminService, IRepository repository)
         {
