@@ -796,20 +796,14 @@ namespace Eshop.BusinessLogic
 
         public void DeleteAccount(int accountId)
         {
-            AccountInfo accountInfo;
-            while ((accountInfo = GetAccountInfo(accountId)) != null)
-            {
-                db.AccountInfos.Remove(accountInfo);
-                db.SaveChanges();
-            }
-            db.Accounts.Remove(db.Accounts.Where(x => x.Id == accountId).FirstOrDefault());
+            db.Accounts.Where(x => x.Id == accountId).FirstOrDefault().Status = Account.AccStatus.deleted;
             db.SaveChanges();
         }
 
-        public void ChangeAccountRole(int accountId, Account.AccRole newRole)
+        public void ChangeAccountRole(int accountId, Account.AccRole role)
         {
             var account = db.Accounts.Where(x => x.Id == accountId).FirstOrDefault();
-            account.Role = newRole;
+            account.Role = role;
             db.SaveChanges();
         }
     }

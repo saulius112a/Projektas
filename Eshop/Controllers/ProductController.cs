@@ -15,7 +15,7 @@ using Eshop.Models;
 
 namespace Eshop.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         // GET: Product
         private readonly ICategoryService CategoryService;

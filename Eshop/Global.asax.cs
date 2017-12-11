@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -16,6 +13,20 @@ namespace Eshop
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        protected void Application_Error()
+        {
+            var serverError = Server.GetLastError() as HttpException;
+
+            if (null != serverError)
+            {
+                if (serverError.GetHttpCode() == 404)
+                {
+                    Server.ClearError();
+                    Response.Redirect("/Home/NotFound");
+                }
+            }
         }
     }
 }

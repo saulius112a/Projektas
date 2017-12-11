@@ -29,6 +29,21 @@ namespace Eshop.Controllers
         {
             return View();
         }
+
+        public ActionResult NotFound()
+        {
+            Response.TrySkipIisCustomErrors = true;
+            Response.StatusCode = 404;
+            return View();
+        }
+
+        public ActionResult Forbidden()
+        {
+            Response.TrySkipIisCustomErrors = true;
+            Response.StatusCode = 403;
+            return View();
+        }
+
         public int InsertCategory(CategoryViewModel category)
         {
             CategoryModel cat = (CategoryModel)category;

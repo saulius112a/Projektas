@@ -1,10 +1,6 @@
 ﻿using Eshop.Data.Entities;
-using Eshop.Data.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eshop.BusinessLogic.Interfaces
 {
@@ -12,5 +8,6 @@ namespace Eshop.BusinessLogic.Interfaces
     {
         List<Account> GetClientAccountList();
         List<Account> GetEmployeeAccountList();
+        List<Account> GetAccountList(DateTime? start, DateTime? end);
     }
 }

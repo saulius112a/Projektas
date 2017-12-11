@@ -52,36 +52,5 @@
         <input class="col-4 form-control" type="text" name="ZipCode" value="@Html.DisplayFor(model => model.ZipCode)" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Atnaujinti</button>
+    <button type="submit" class="btn btn-primary" >Atnaujinti</button>
 </form>
-
-<div>
-    @*<table class="table">
-        <tr>
-            <td>El. paštas</td>
-            <td>@Html.Encode(User.Identity.Name)</td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(name => Model.Name)</td>
-            <td>@Html.DisplayFor(name => Model.Name)</td>
-        </tr>
-        <tr>
-            <td>Pavarde</td>
-            <td>@Html.DisplayFor(lastname => Model.LastName)</td>
-        </tr>
-        <tr>
-            <td>Adresas</td>
-            <td>@Html.DisplayFor(address => Model.Address)</td>
-        </tr>
-        <tr>
-            <td>Telefono numeris</td>
-            <td>@Html.DisplayFor(phone => Model.Phone)</td>
-        </tr>
-        <tr>
-            <td>Pašto kodas</td>
-            <td>@Html.DisplayFor(zipcode => Model.ZipCode)</td>
-        </tr>
-    </table>*@
-    <strong>@Html.ActionLink("Redaguoti", "Edit", "Account")</strong>
-@*</div>*@
-
