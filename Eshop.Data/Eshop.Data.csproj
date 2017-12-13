@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201712081955358_removeUnitReq.Designer.cs">
       <DependentUpon>201712081955358_removeUnitReq.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712132001345_AddLoginLogDate.cs" />
+    <Compile Include="Migrations\201712132001345_AddLoginLogDate.Designer.cs">
+      <DependentUpon>201712132001345_AddLoginLogDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountInfoModel.cs" />
     <Compile Include="Models\AccountModel.cs" />
@@ -120,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712081955358_removeUnitReq.resx">
       <DependentUpon>201712081955358_removeUnitReq.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712132001345_AddLoginLogDate.resx">
+      <DependentUpon>201712132001345_AddLoginLogDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
