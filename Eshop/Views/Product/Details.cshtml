@@ -2,7 +2,13 @@
 @{
     ViewBag.Title = "Aprašymas";
 }
-<h2>Detales</h2>
+<div>
+    <h2>Detales</h2>
+    <div style="float:right">
+        <input type="button" class="btn btn-default" value="&#9829" onclick="location.href='@Url.Action("AddFavorites", "Account", new { id = Model.Id})'" />
+        <input type="button" class="btn btn-default" value="Krepšelis" onclick="location.href='@Url.Action("Cart", "Account")'" />
+    </div>
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

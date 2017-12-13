@@ -1,5 +1,5 @@
 ﻿<h2>Upload File</h2>
-@using (Html.BeginForm("UploadAttributes", "Product", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("UploadAttributes", "Category", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()

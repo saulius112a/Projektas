@@ -68,5 +68,10 @@ namespace Eshop.BusinessLogic.Implementations
             }
             var dbRsp = Repository.InsertLoginLog((LoginLog)llm);
         }
+
+        public void AddFavorites(int id, int accId)
+        {
+            Repository.AddFavorite(id, accId);
+        }
     }
 }

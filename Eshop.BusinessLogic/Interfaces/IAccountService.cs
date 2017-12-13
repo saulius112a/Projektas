@@ -16,5 +16,6 @@ namespace Eshop.BusinessLogic.Interfaces
         AccountModel GetAccountByEmail(string email);
         string UpdateAccountInfo(int id, AccountInfoModel a);
         void LogLogin(bool status, string email, string ip);
+        void AddFavorites(int id, int accId);
     }
 }

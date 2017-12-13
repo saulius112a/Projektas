@@ -192,6 +192,7 @@
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\EditViewModel.cs" />
     <Compile Include="Models\Extensions.cs" />
+    <Compile Include="Models\FavoriteViewModel.cs" />
     <Compile Include="Models\FilterViewModel.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
     <Compile Include="Models\AccountListModel.cs" />
@@ -396,6 +397,8 @@
     <Content Include="Views\Admin\AccountList.cshtml" />
     <Content Include="Views\Home\NotFound.cshtml" />
     <Content Include="Views\Home\Forbidden.cshtml" />
+    <Content Include="Views\Account\Favorite.cshtml" />
+    <Content Include="Views\Account\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

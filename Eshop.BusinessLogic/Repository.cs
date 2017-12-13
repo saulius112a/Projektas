@@ -806,6 +806,39 @@ namespace Eshop.BusinessLogic
             account.Role = role;
             db.SaveChanges();
         }
+
+        public void AddFavorite(int id, int accId)
+        {
+            int listId = GetFavoritesListId(accId);
+            WishListProduct wl = new WishListProduct();
+            wl.ProductId = id;
+            wl.Status = "";
+            wl.WishListId = listId;
+            db.WishListProducts.Add(wl);
+            db.SaveChanges();
+        }
+
+        public int GetFavoritesListId(int accId)
+        {
+            WishList wl = db.WishLists.Where(x => x.AccountId == accId).FirstOrDefault();
+            if(wl != null)
+            {
+                return wl.Id;
+            } else
+            {
+                createFavoritesList(accId);
+                wl = db.WishLists.Where(x => x.AccountId == accId).FirstOrDefault();
+                return wl.Id;
+            }
+        }
+
+        public void createFavoritesList(int accId)
+        {
+            WishList wl = new WishList();
+            wl.AccountId = accId;
+            db.WishLists.Add(wl);
+            db.SaveChanges();
+        }
     }
 
 }

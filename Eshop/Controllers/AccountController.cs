@@ -24,6 +24,27 @@ namespace Eshop.Controllers
             Repository = rep;
             AccountService = accs;
         }
+
+        [HttpGet]
+        public ActionResult AddFavorites(int id)
+        {
+            AccountModel am = AccountService.GetAccountByEmail(User.Identity.Name);
+            AccountService.AddFavorites(id, am.Id);
+            return RedirectToAction("Details", "Product", new { id = id });
+        }
+
+        [HttpGet]
+        public ActionResult Favorites()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Cart()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Profile()
         {

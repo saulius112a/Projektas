@@ -54,6 +54,8 @@ namespace Eshop.BusinessLogic
         List<Account> GetAccountList();
         void DeleteAccount(int accountId);
         void ChangeAccountRole(int accountId, Account.AccRole newRole);
-
+        void AddFavorite(int id, int accId);
+        int GetFavoritesListId(int accId);
+        void createFavoritesList(int accId);
     }
 }
