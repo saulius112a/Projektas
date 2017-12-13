@@ -29,12 +29,18 @@ namespace Eshop.BusinessLogic.Implementations
 
         public List<Account> GetAccountList(DateTime? start, DateTime? end)
         {
-            return Repository.GetAccountList()
+            var list = Repository.GetAccountList()
                 .Where(x => start == null ? true : Nullable.Compare(x.CreationDate, start) > 0)
                 .Where(x => end == null ? true : Nullable.Compare(x.CreationDate, end) < 0)
                 .OrderBy(x => x.AccountInfo.LastName)
                 .ThenBy(x => x.AccountInfo.Name)
                 .ToList();
+
+            foreach (var item in list)
+            {
+                item.LoginLogs = item.LoginLogs.OrderByDescending(x => x.LoginDate).ToList();
+            }
+            return list;
         }
 
 

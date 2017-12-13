@@ -49,6 +49,9 @@
             @Html.DisplayNameFor(x => acc.AccountInfo.ZipCode)
         </th>
         <th>
+            Paskutiniai prisijungimai
+        </th>
+        <th>
             @Html.DisplayNameFor(x => acc.Role)
         </th>
         <th>
@@ -79,6 +82,28 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AccountInfo.ZipCode)
+        </td>
+        <td>
+            @for (int i = 0; i < 3; i++)
+            {
+                var elem = item.LoginLogs.ElementAtOrDefault(i);
+                if (elem != null)
+                {
+                    @Html.Encode(elem.IPAddress);
+                    @Html.Encode(", ");
+                    @Html.Encode(elem.LoginDate.ToString());
+                    @Html.Encode(", ");
+                    if (elem.Status == LoginLog.LogStatus.failed)
+                    {
+                        @Html.Encode("nepavyko");
+                    }
+                    else
+                    {
+                        @Html.Encode("pavyko");
+                    }
+                    @Html.Raw("<br/>")
+                }
+            }
         </td>
         <td>
             @switch(item.Role)

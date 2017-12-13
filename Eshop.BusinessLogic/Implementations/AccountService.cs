@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Eshop.Data.Models;
 using System.Security.Claims;
 using Eshop.Data.Entities;
+using System.Net;
 
 namespace Eshop.BusinessLogic.Implementations
 {
@@ -54,10 +55,22 @@ namespace Eshop.BusinessLogic.Implementations
 
         public void LogLogin(bool status, string email, string ip)
         {
+            IPAddress ipAddress;
+            IPAddress.TryParse(ip, out ipAddress);
+
+            // If we got an IPV6 address, then we need to ask the network for the IPV4 address 
+            // This usually only happens when the browser is on the same machine as the server.
+            if (ipAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+            {
+                ipAddress = System.Net.Dns.GetHostEntry(ipAddress).AddressList
+                    .First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+            }
+
             LoginLogsModel llm = new LoginLogsModel();
-            llm.IPAddress = ip;
+            llm.IPAddress = ipAddress.ToString();
             llm.AccountId = GetAccountByEmail(email).Id;
-            switch(status)
+            llm.LoginDate = DateTime.Now;
+            switch (status)
             {
                 case true:
                     llm.Status = LoginLog.LogStatus.succeded;

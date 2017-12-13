@@ -791,7 +791,7 @@ namespace Eshop.BusinessLogic
 
         public List<Account> GetAccountList()
         {
-            return db.Accounts.Include(x => x.AccountInfo).ToList();
+            return db.Accounts.Include(x => x.AccountInfo).Include(x => x.LoginLogs).ToList();
         }
 
         public void DeleteAccount(int accountId)
