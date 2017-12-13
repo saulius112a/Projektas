@@ -61,19 +61,27 @@ namespace Eshop.Controllers
                 {
                     if (upload.FileName.EndsWith(".json"))
                     {
-                        Stream stream = upload.InputStream;
-                        Repository.InsertCategoriesFromJsonFile(new StreamReader(stream));
-                        return RedirectToAction("Index");
+                        try
+                        {
+                            Stream stream = upload.InputStream;
+                            Repository.InsertCategoriesFromJsonFile(new StreamReader(stream));
+                            return RedirectToAction("Index");
+                        }
+                        catch
+                        {
+                            ModelState.AddModelError("File", "Netinkamas failo formatas");
+                        }
+                        
                     }
                     else
                     {
-                        ModelState.AddModelError("File", "This file format is not supported");
+                        ModelState.AddModelError("File", "Netinkamas failo formatas");
                         return View();
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("File", "Please Upload Your file");
+                    ModelState.AddModelError("File", "Prašome įdėti failą");
                 }
             }
             //return RedirectToAction("Index");
@@ -89,19 +97,28 @@ namespace Eshop.Controllers
                 {
                     if (upload.FileName.EndsWith(".json"))
                     {
-                        Stream stream = upload.InputStream;
-                        Repository.InsertCategoryAttributesFromJsonFile(new StreamReader(stream));
-                        return RedirectToAction("Index");
+                        try
+                        {
+                            Stream stream = upload.InputStream;
+                            Repository.InsertCategoryAttributesFromJsonFile(new StreamReader(stream));
+                            return RedirectToAction("Index");
+                        }
+                        catch
+                        {
+                            ModelState.AddModelError("File", "Netinkamas failo formatas");
+                            return View();
+                        }
+                        
                     }
                     else
                     {
-                        ModelState.AddModelError("File", "This file format is not supported");
+                        ModelState.AddModelError("File", "Netinkamas failo formatas");
                         return View();
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("File", "Please Upload Your file");
+                    ModelState.AddModelError("File", "Prašome įdėti failą");
                 }
             }
             //return RedirectToAction("Index");
