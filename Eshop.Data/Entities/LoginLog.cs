@@ -16,6 +16,7 @@ namespace Eshop.Data.Entities
         [ForeignKey("Account")]
         public int AccountId { get; set; }
         public virtual Account Account { get; set; }
+        public DateTime LoginDate { get; set; }
 
         public enum LogStatus
         {

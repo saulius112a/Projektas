@@ -12,6 +12,7 @@ namespace Eshop.Data.Models
     {
         public string IPAddress { get; set; }
         public LogStatus Status { get; set; }
+        public DateTime LoginDate { get; set; }
         public int AccountId { get; set; }
 
         public static explicit operator LoginLogsModel(LoginLog l)
@@ -20,7 +21,8 @@ namespace Eshop.Data.Models
             {
                 IPAddress = l.IPAddress,
                 Status = l.Status,
-                AccountId = l.AccountId
+                AccountId = l.AccountId,
+                LoginDate=l.LoginDate
             };
         }
 
@@ -30,7 +32,8 @@ namespace Eshop.Data.Models
             {
                 IPAddress = l.IPAddress,
                 Status = l.Status,
-                AccountId = l.AccountId
+                AccountId = l.AccountId,
+                LoginDate=l.LoginDate
             };
         }
 
