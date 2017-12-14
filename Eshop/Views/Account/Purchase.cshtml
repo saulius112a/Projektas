@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Eshop.Data.Entities.Product>
 
 @{
-    ViewBag.Title = "Cart";
+    ViewBag.Title = "Purchase";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Cart</h2>
+<h2>Purchase</h2>
 <div style="float: left; padding-left:20px">
     <table class="table">
         <tr>
@@ -41,13 +41,10 @@
             </tr>
         }
         <tr>
-            <td colspan="2"><input type="button" class="btn btn-default" value="Užsisakyti" onclick="location.href='@Url.Action("CheckOut", "Account")'" /></td>
+            <td colspan="2"></td>
             <td></td>
             <td></td>
             <td>Viso: @ViewBag.amount</td>
         </tr>
     </table>
 </div>
-
-
-

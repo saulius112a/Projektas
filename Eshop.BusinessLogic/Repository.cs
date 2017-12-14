@@ -10,6 +10,7 @@ using Eshop.Data.Models;
 using System.Web.Mvc;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using System.Data.Entity.Validation;
 
 namespace Eshop.BusinessLogic
 {
@@ -91,6 +92,7 @@ namespace Eshop.BusinessLogic
         {
             try
             {
+                l.LoginDate = DateTime.Now;
                 db.LoginLogs.Add(l);
                 db.SaveChanges();
                 return "";
@@ -809,13 +811,25 @@ namespace Eshop.BusinessLogic
 
         public void AddFavorite(int id, int accId)
         {
-            int listId = GetFavoritesListId(accId);
-            WishListProduct wl = new WishListProduct();
-            wl.ProductId = id;
-            wl.Status = "";
-            wl.WishListId = listId;
-            db.WishListProducts.Add(wl);
-            db.SaveChanges();
+            try
+            {
+                int listId = GetFavoritesListId(accId);
+                WishListProduct wl = new WishListProduct();
+                wl.ProductId = id;
+                wl.Status = "";
+                wl.WishListId = listId;
+                db.WishListProducts.Add(wl);
+                db.SaveChanges();
+            } catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        System.Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
         }
 
         public int GetFavoritesListId(int accId)
@@ -838,6 +852,138 @@ namespace Eshop.BusinessLogic
             wl.AccountId = accId;
             db.WishLists.Add(wl);
             db.SaveChanges();
+        }
+
+        public List<WishListProduct> GetFavorites(int accId)
+        {
+            int id = GetFavoritesListId(accId);
+            return db.WishListProducts.Where(x => x.WishListId == id).ToList();
+        }
+
+        public void RemoveFavorite(int id)
+        {
+            WishListProduct wl = db.WishListProducts.Where(x => x.Id == id).FirstOrDefault();
+            db.WishListProducts.Remove(wl);
+            db.SaveChanges();
+        }
+
+        public int GetFavoriteId(int accId, int pId)
+        {
+            int wId = GetFavoritesListId(accId);
+            return db.WishListProducts.Where(x => x.ProductId == pId && x.WishListId == wId).FirstOrDefault().Id;
+        }
+
+        public void AddCart(int id, int accId)
+        {
+            try
+            {
+                int cartId = GetCartListId(accId);
+                CartInfo ci = new CartInfo();
+                ci.CartId = cartId;
+                ci.CreationDate = DateTime.Now;
+                ci.ProductId = id;
+                ci.Amount = 1;
+                db.CartInfos.Add(ci);
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        System.Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
+        }
+
+        public int GetCartListId(int accId)
+        {
+            Cart c = db.Carts.Where(x => x.AccountId == accId).FirstOrDefault();
+            if (c != null)
+            {
+                return c.Id;
+            }
+            else
+            {
+                createCartList(accId);
+                c = db.Carts.Where(x => x.AccountId == accId).FirstOrDefault();
+                return c.Id;
+            }
+        }
+
+        public void createCartList(int accId)
+        {
+            Cart c = new Cart();
+            c.AccountId = accId;
+            db.Carts.Add(c);
+            db.SaveChanges();
+        }
+
+        public List<CartInfo> GetCart(int accId)
+        {
+            int id = GetCartListId(accId);
+            return db.CartInfos.Where(x => x.CartId == id).ToList();
+        }
+
+        public void RemoveCart(int id)
+        {
+            CartInfo c = db.CartInfos.Where(x => x.Id == id).FirstOrDefault();
+            db.CartInfos.Remove(c);
+            db.SaveChanges();
+        }
+
+        public int GetCartId(int accId, int pId)
+        {
+            int cId = GetCartListId(accId);
+            return db.CartInfos.Where(x => x.ProductId == pId && x.CartId == cId).FirstOrDefault().Id;
+        }
+
+        public int CreatePurchase(int accId)
+        {
+            List<CartInfo> list = GetCart(accId);
+            int pId = CreatePurchaseList(accId);
+            int cId = GetCartId(accId);
+            for(int i = 0; i < list.Count; i++)
+            {
+                PurchaseInfo temp = new PurchaseInfo();
+                temp.Amount = list[i].Amount;
+                temp.Price = GetProduct(list[i].ProductId).Price * list[i].Amount;
+                temp.ProductId = list[i].ProductId;
+                temp.PurchaseId = pId;
+                db.PurchaseInfos.Add(temp);
+            }
+            DeleteCart(cId);
+            return pId;
+        }
+
+        public int CreatePurchaseList(int accId)
+        {
+            Purchase p = new Purchase();
+            p.AccountId = accId;
+            p.status = "";
+            p.CreationDate = DateTime.Now;
+            db.Purchases.Add(p);
+            db.SaveChanges();
+            return p.Id;
+        }
+
+        public List<PurchaseInfo> GetPurchase(int Id)
+        {
+            return db.PurchaseInfos.Where(x => x.PurchaseId == Id).ToList();
+        }
+
+        public void DeleteCart(int id)
+        {
+            Cart c = db.Carts.Where(x => x.Id == id).FirstOrDefault();
+            db.Carts.Remove(c);
+            db.SaveChanges();
+        }
+
+        public int GetCartId(int accId)
+        {
+            return db.Carts.Where(x => x.AccountId == accId).FirstOrDefault().Id;
         }
     }
 

@@ -57,5 +57,19 @@ namespace Eshop.BusinessLogic
         void AddFavorite(int id, int accId);
         int GetFavoritesListId(int accId);
         void createFavoritesList(int accId);
+        List<WishListProduct> GetFavorites(int accId);
+        void RemoveFavorite(int id);
+        int GetFavoriteId(int accId, int pId);
+        void AddCart(int id, int accId);
+        int GetCartListId(int accId);
+        void createCartList(int accId);
+        List<CartInfo> GetCart(int accId);
+        void RemoveCart(int id);
+        int GetCartId(int accId, int pId);
+        int CreatePurchase(int accId);
+        int CreatePurchaseList(int accId);
+        List<PurchaseInfo> GetPurchase(int accId);
+        void DeleteCart(int id);
+        int GetCartId(int accId);
     }
 }
