@@ -4,24 +4,24 @@
 @{
     ViewBag.Title = "Categories";
 }
-<h2>Categories</h2>
+<h2>Kategorijos</h2>
 <p>
-    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("Upload Categories", "UploadCategories")
+    @Html.ActionLink("Kurti nauja", "Create") | @Html.ActionLink("Įkelti", "UploadCategories")
 </p>
 @using (Html.BeginForm("CategoryList", "Product", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
+        Pavadinimas: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Ieškoti" />
     </p>
 }
 <table class="table">
     <tr>
         <th>
-            Category Name
+            Kategorijos pavadinimas
         </th>
         <th>
-            Parent Category
+            Tėvinė kategorija
         </th>
         <th></th>
     </tr>
@@ -46,6 +46,6 @@
     }
 </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Puslapis @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) iš @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("CategoryList",
     new { page, currentFilter = ViewBag.CurrentFilter }))

@@ -4,29 +4,29 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Manufacturers";
+    ViewBag.Title = "Gamintojai";
 }
 
-<h2>Manufacturers</h2>
+<h2>Gamintojai</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateManufacturer") | @Html.ActionLink("Upload Manufacturers", "Upload")
+    @Html.ActionLink("Kurti naują", "CreateManufacturer") | @Html.ActionLink("Įkelti naują", "Upload")
 </p>
 
 @using (Html.BeginForm("Manufacturer", "Product", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
+        Pavadinimas: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Ieškoti" />
     </p>
 }
 <table class="table">
     <tr>
         <th>
-            Name
+            Pavadinimas
         </th>
         <th>
-            Weblink Name
+            Svetainė
         </th>
         <th></th>
     </tr>
@@ -43,14 +43,14 @@
 
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditManufacturer", new { id = item.Id }) | @Html.ActionLink("Peržiūrėti", "Details", new { id = item.Id }) | @Html.ActionLink("Ištrinti", "Delete", new { id = item.Id })
+                @Html.ActionLink("Redaguoti", "EditManufacturer", new { id = item.Id }) | @Html.ActionLink("Peržiūrėti", "Details", new { id = item.Id }) | @Html.ActionLink("Ištrinti", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
 
 </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Puslapis @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) iš @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, currentFilter = ViewBag.CurrentFilter }))

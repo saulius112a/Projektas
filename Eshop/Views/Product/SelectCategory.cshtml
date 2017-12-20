@@ -4,21 +4,21 @@
 @{
     ViewBag.Title = "Categories";
 }
-<h2>Select Category</h2>
+<h2>Pasirinkti kategoriją</h2>
 @using (Html.BeginForm("SlectCategory", "Product", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
+        Pavadinimas: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Ieškoti" />
     </p>
 }
 <table class="table">
     <tr>
         <th>
-            Category Name
+            Pavadinimas
         </th>
         <th>
-            Parent Category
+            Tėvinė kategorija
         </th>
         <th></th>
     </tr>
@@ -32,7 +32,7 @@
                 @Html.DisplayFor(modelItem => item.Parent.Name)
             </td>
             <td>
-                @Html.ActionLink("Select", "AddProduct", new { categoryId = item.Id })
+                @Html.ActionLink("Pasirinkti", "AddProduct", new { categoryId = item.Id })
             </td>
         </tr>
     }

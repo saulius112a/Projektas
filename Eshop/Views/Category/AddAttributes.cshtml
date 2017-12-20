@@ -5,17 +5,17 @@
 {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Details</legend>
+        <legend>Detalės</legend>
         @Html.HiddenFor(model=> model.Id)
         <div class="editor-label">
-            @Html.LabelFor(model=>model.Name)
+            <p>Pavadinimas</p>
         </div>
         <div class="editor-field">
             @Html.DisplayFor(model => model.Name)
         </div>
     </fieldset>
     <fieldset>
-        <legend>Category Attributes</legend>
+        <legend>Atributai</legend>
         @if (Model.Attributes == null || Model.Attributes.Count == 0)
         {
             <p>None.</p>
@@ -29,7 +29,7 @@
                 }
             }
         </ul>         
-        <a id="addAnother" href="#">Add another</a>
+        <a id="addAnother" href="#">Pridėti</a>
         <script type="text/javascript">
             $(function () {
                 $("#addAnother").click(function () {
@@ -41,10 +41,9 @@
         </script>
     </fieldset>
     <p>
-        <input type="submit" value="Save" />
-        <a href="/">Cancel</a>
+        <input type="submit" value="Išsaugoti" />
     </p>
     <div>
-        @Html.ActionLink("Back to List", "CategoryList")
+        @Html.ActionLink("Grįžti atgal", "CategoryList")
     </div>
 }

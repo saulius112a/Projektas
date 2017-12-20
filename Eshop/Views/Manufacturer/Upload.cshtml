@@ -1,4 +1,4 @@
-﻿<h2>Upload File</h2>
+﻿<h2>Įkelti failą</h2>
 @using (Html.BeginForm("Upload", "Manufacturer", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -9,6 +9,6 @@
     </div>
 
     <div class="form-group">
-        <input type="submit" value="Upload" class="btn btn-default" />
+        <input type="submit" value="Įkelti" class="btn btn-default" />
     </div>
 }

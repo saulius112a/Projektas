@@ -3,20 +3,20 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Manufacturers";
+    ViewBag.Title = "Produktai";
 }
 
 <h2>Produktai</h2>
 
 <p>
-    @Html.ActionLink("Create New", "SelectCategory") | @Html.ActionLink("Upload Products", "UploadProducts")
+    @Html.ActionLink("Kurti naują", "SelectCategory") | @Html.ActionLink("Įkelti naują", "UploadProducts")
 </p>
 
 @using (Html.BeginForm("Product", "Product", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
+        Pavadinimas: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Ieškoti" />
     </p>
 }
 <table class="table">
@@ -62,7 +62,7 @@
 
 </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Puslapis @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) iš @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, currentFilter = ViewBag.CurrentFilter }))
