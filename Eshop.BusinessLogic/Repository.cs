@@ -268,10 +268,8 @@ namespace Eshop.BusinessLogic
             db.ChangeTracker.DetectChanges();
             db.SaveChangesAsync();
         }
-        public void InsertProductsFromJsonFile(StreamReader reader) 
+        public string InsertProductsFromJsonFile(StreamReader reader) 
         {
-            try
-            {
                 string json = reader.ReadToEnd();
                 var res = JObject.Parse(json);
                 var v = res.Property("products");
@@ -421,11 +419,8 @@ namespace Eshop.BusinessLogic
                 }
                 db.ChangeTracker.DetectChanges();
                 db.SaveChangesAsync();
-            }
-            catch
-            {
-                throw;
-            }
+                return "good";
+
         }
         public List<Manufacturer> GetManufacturers(string searchString = null)
         {
