@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Eshop.Data.Entities.Product>
+
+@{
+    ViewBag.Title = "Favorites";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Favorites</h2>
+<div style="float: left; padding-left:20px">
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                Pavadinimas
+            </th>
+            <th>
+                Prekes Kodas
+            </th>
+            <th>Spalva</th>
+            <th>Kaina</th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="button" class="btn btn-default" value="&#215" onclick="location.href='@Url.Action("RemoveFavorites", "Account", new { id = item.Id})'" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+

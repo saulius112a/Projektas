@@ -24,7 +24,12 @@ namespace Eshop.Controllers
                 && (actionName == "Profile" || actionName == "LogOut")
                 && IsLoggedOut())
                 filterContext.Result = Redirect("/Home/Forbidden");
-            
+
+            // dont let logged in users to login
+            /*if (controllerName == "Account"
+                && (actionName == "LogIn")
+                && IsLoggedIn())
+                filterContext.Result = Redirect("/Home/Forbidden");*/
             // dont let not employees to access manufacturer control
             if (controllerName == "Manufacturer"
                 && !IsAtleastEmployee())

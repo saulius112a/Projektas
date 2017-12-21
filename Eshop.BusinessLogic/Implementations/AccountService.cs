@@ -81,5 +81,66 @@ namespace Eshop.BusinessLogic.Implementations
             }
             var dbRsp = Repository.InsertLoginLog((LoginLog)llm);
         }
+
+        public void AddFavorites(int id, int accId)
+        {
+            Repository.AddFavorite(id, accId);
+        }
+
+        public List<Product> GetFavoriteProducts(int accId)
+        {
+            List<Product> list = new List<Product>();
+            List<WishListProduct> wishlist = Repository.GetFavorites(accId);
+            for(int i = 0; i < wishlist.Count; i++)
+            {
+                Product temp = Repository.GetProduct(wishlist[i].ProductId);
+                list.Add(temp);
+            }
+            return list;
+        }
+
+        public void RemoveFavorite(int id, int accId)
+        {
+            Repository.RemoveFavorite(Repository.GetFavoriteId(accId, id));
+        }
+
+        public void AddCart(int id, int accId)
+        {
+            Repository.AddCart(id, accId);
+        }
+
+        public List<Product> GetCartProducts(int accId)
+        {
+            List<Product> list = new List<Product>();
+            List<CartInfo> cartlist = Repository.GetCart(accId);
+            for (int i = 0; i < cartlist.Count; i++)
+            {
+                Product temp = Repository.GetProduct(cartlist[i].ProductId);
+                list.Add(temp);
+            }
+            return list;
+        }
+
+        public void RemoveCart(int id, int accId)
+        {
+            Repository.RemoveCart(Repository.GetCartId(accId, id));
+        }
+
+        public int CreatePurchase(int id)
+        {
+            return Repository.CreatePurchase(id);
+        }
+
+        public List<Product> GetPurchaseProducts(int Id)
+        {
+            List<Product> list = new List<Product>();
+            List<PurchaseInfo> purchaselist = Repository.GetPurchase(Id);
+            for (int i = 0; i < purchaselist.Count; i++)
+            {
+                Product temp = Repository.GetProduct(purchaselist[i].ProductId);
+                list.Add(temp);
+            }
+            return list;
+        }
     }
 }

@@ -7,13 +7,13 @@ namespace Eshop.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddLoginLogDate : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddLoginLogDate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712132001345_AddLoginLogDate"; }
+            get { return "201712132036198_initial"; }
         }
         
         string IMigrationMetadata.Source

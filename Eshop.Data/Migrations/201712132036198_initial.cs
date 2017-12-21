@@ -43,6 +43,7 @@ namespace Eshop.Data.Migrations
                         IPAddress = c.String(nullable: false, unicode: false),
                         Status = c.Int(nullable: false),
                         AccountId = c.Int(nullable: false),
+                        LoginDate = c.DateTime(nullable: false, precision: 0),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Account", t => t.AccountId, cascadeDelete: true)
@@ -117,7 +118,7 @@ namespace Eshop.Data.Migrations
                 c => new
                     {
                         ProductAttributeId = c.Int(nullable: false),
-                        Unit = c.String(nullable: false, unicode: false),
+                        Unit = c.String(unicode: false),
                         Value = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => t.ProductAttributeId)
@@ -235,13 +236,12 @@ namespace Eshop.Data.Migrations
                 "dbo.WishListProduct",
                 c => new
                     {
-                        Id = c.Int(nullable: false),
-                        Importance = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         Status = c.String(unicode: false),
                         WishListId = c.Int(nullable: false),
                         ProductId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.Id, t.Importance })
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Product", t => t.ProductId, cascadeDelete: true)
                 .ForeignKey("dbo.WishList", t => t.WishListId, cascadeDelete: true)
                 .Index(t => t.WishListId)

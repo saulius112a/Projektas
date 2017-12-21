@@ -77,17 +77,9 @@
     <Compile Include="Entities\TraitValue.cs" />
     <Compile Include="Entities\WishList.cs" />
     <Compile Include="Entities\WishListProduct.cs" />
-    <Compile Include="Migrations\201712081947056_initial.cs" />
-    <Compile Include="Migrations\201712081947056_initial.Designer.cs">
-      <DependentUpon>201712081947056_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712081955358_removeUnitReq.cs" />
-    <Compile Include="Migrations\201712081955358_removeUnitReq.Designer.cs">
-      <DependentUpon>201712081955358_removeUnitReq.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712132001345_AddLoginLogDate.cs" />
-    <Compile Include="Migrations\201712132001345_AddLoginLogDate.Designer.cs">
-      <DependentUpon>201712132001345_AddLoginLogDate.cs</DependentUpon>
+    <Compile Include="Migrations\201712132036198_initial.cs" />
+    <Compile Include="Migrations\201712132036198_initial.Designer.cs">
+      <DependentUpon>201712132036198_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountInfoModel.cs" />
@@ -119,14 +111,8 @@
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712081947056_initial.resx">
-      <DependentUpon>201712081947056_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712081955358_removeUnitReq.resx">
-      <DependentUpon>201712081955358_removeUnitReq.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712132001345_AddLoginLogDate.resx">
-      <DependentUpon>201712132001345_AddLoginLogDate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712132036198_initial.resx">
+      <DependentUpon>201712132036198_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -24,6 +24,61 @@ namespace Eshop.Controllers
             Repository = rep;
             AccountService = accs;
         }
+
+        [HttpGet]
+        public ActionResult AddFavorites(int id)
+        {
+            AccountModel am = AccountService.GetAccountByEmail(User.Identity.Name);
+            AccountService.AddFavorites(id, am.Id);
+            return RedirectToAction("Details", "Product", new { id = id });
+        }
+
+        [HttpGet]
+        public ActionResult RemoveFavorites(int id)
+        {
+            AccountModel am = AccountService.GetAccountByEmail(User.Identity.Name);
+            AccountService.RemoveFavorite(id, am.Id);
+            return RedirectToAction("Favorites", "Account");
+        }
+
+        [HttpGet]
+        public ActionResult Favorites()
+        {
+            AccountModel am = AccountService.GetAccountByEmail(User.Identity.Name);
+            List<Product> list = AccountService.GetFavoriteProducts(am.Id);
+            return View(list);
+        }
+
+        [HttpGet]
+        public ActionResult AddCart(int id)
+        {
+            AccountModel am = AccountService.GetAccountByEmail(User.Identity.Name);
+            AccountService.AddCart(id, am.Id);
+            return RedirectToAction("Cart", "Account");
+        }
+
+        [HttpGet]
+        public ActionResult RemoveCart(int id)
+        {
+            AccountModel am = AccountService.GetAccountByEmail(User.Identity.Name);
+            AccountService.RemoveCart(id, am.Id);
+            return RedirectToAction("Cart", "Account");
+        }
+
+        [HttpGet]
+        public ActionResult Cart()
+        {
+            AccountModel am = AccountService.GetAccountByEmail(User.Identity.Name);
+            List<Product> list = AccountService.GetCartProducts(am.Id);
+            double amount = 0;
+            for(int i = 0; i < list.Count; i++)
+            {
+                amount += list[i].Price;
+            }
+            ViewBag.amount = amount;
+            return View(list);
+        }
+
         [HttpGet]
         public ActionResult Profile()
         {
@@ -49,7 +104,25 @@ namespace Eshop.Controllers
                 return View();
             }
         }
+
+        public ActionResult CheckOut()
+        {
+            int uid = AccountService.GetAccountByEmail(User.Identity.Name).Id;
+            int id =AccountService.CreatePurchase(uid);
+            return RedirectToAction("Purchase", "Account", new { id = id });
+        }
         
+        public ActionResult Purchase(int id)
+        {
+            List<Product> list = AccountService.GetPurchaseProducts(id);
+            double amount = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                amount += list[i].Price;
+            }
+            ViewBag.amount = amount;
+            return View(list);
+        }
 
         [HttpGet]
         public ActionResult LogIn()
